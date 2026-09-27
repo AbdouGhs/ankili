@@ -1,0 +1,2146 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agnes IA Générative - Interface (Gratuit)</title>
+    <style>
+        /* ---------- Reset & Variables ---------- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+        }
+
+        :root {
+            --bg: #0f1117;
+            --surface: #1a1d27;
+            --surface2: #242836;
+            --border: #2e3345;
+            --primary: #6c5ce7;
+            --primary-hover: #7d6ff0;
+            --accent: #00cec9;
+            --text: #e8eaed;
+            --text2: #9aa0b0;
+            --danger: #e74c3c;
+            --success: #00b894;
+            --warning: #fdcb6e;
+            --radius: 12px;
+            --radius-sm: 8px;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            line-height: 1.5;
+        }
+
+        /* ---------- Header ---------- */
+        header {
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 1.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary);
+            white-space: nowrap;
+        }
+
+        .logo span {
+            font-size: 1.5rem;
+        }
+
+        .header-badge {
+            font-size: 0.7rem;
+            background: rgba(0, 184, 148, 0.15);
+            color: var(--success);
+            padding: 0.2rem 0.5rem;
+            border-radius: 20px;
+            font-weight: 600;
+            border: 1px solid rgba(0, 184, 148, 0.3);
+        }
+
+        .api-key-area {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex: 1;
+            min-width: 200px;
+            max-width: 400px;
+            margin-left: auto;
+        }
+
+        .api-key-area input {
+            flex: 1;
+            padding: 0.5rem 0.75rem;
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            color: var(--text);
+            font-size: 0.85rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .api-key-area input:focus {
+            border-color: var(--primary);
+        }
+
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--danger);
+            flex-shrink: 0;
+        }
+
+        .status-dot.connected {
+            background: var(--success);
+        }
+
+        /* ---------- API Config Panel ---------- */
+        .api-config-section {
+            padding: 0.75rem 1.5rem 0;
+            max-width: 1100px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .config-toggle {
+            width: 100%;
+            padding: 0.7rem 1rem;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            color: var(--text2);
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.2s;
+        }
+
+        .config-toggle:hover {
+            border-color: var(--primary);
+            color: var(--text);
+        }
+
+        .toggle-arrow {
+            transition: transform 0.3s;
+            font-size: 0.7rem;
+        }
+
+        .toggle-arrow.open {
+            transform: rotate(180deg);
+        }
+
+        .config-panel {
+            display: none;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-top: none;
+            border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+            padding: 1.25rem;
+            animation: fadeIn 0.25s ease;
+        }
+
+        .config-panel.visible {
+            display: block;
+        }
+
+        .config-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .config-field {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+
+        .config-field label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text2);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .config-input-row {
+            display: flex;
+            gap: 0.4rem;
+        }
+
+        .config-input-row input {
+            flex: 1;
+            padding: 0.55rem 0.75rem;
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            color: var(--text);
+            font-size: 0.85rem;
+            outline: none;
+            transition: border-color 0.2s;
+            font-family: inherit;
+        }
+
+        .config-input-row input:focus {
+            border-color: var(--primary);
+        }
+
+        .config-btn-secondary {
+            padding: 0.55rem 0.7rem;
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: border-color 0.2s;
+            color: var(--text);
+        }
+
+        .config-btn-secondary:hover {
+            border-color: var(--primary);
+        }
+
+        .config-status {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.75rem;
+            color: var(--text2);
+        }
+
+        .status-dot-sm {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--danger);
+            flex-shrink: 0;
+        }
+
+        .status-dot-sm.connected {
+            background: var(--success);
+        }
+
+        .status-dot-sm.testing {
+            background: var(--warning);
+            animation: pulse 1s infinite;
+        }
+
+        .config-hint {
+            font-size: 0.72rem;
+            color: var(--text2);
+            font-style: italic;
+        }
+
+        .config-btn-test {
+            padding: 0.55rem 1rem;
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            color: var(--text);
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .config-btn-test:hover:not(:disabled) {
+            border-color: var(--primary);
+        }
+
+        .config-btn-test:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .config-test-result {
+            font-size: 0.75rem;
+            min-height: 1.2em;
+            margin-top: 0.2rem;
+            line-height: 1.4;
+        }
+
+        .config-test-result.success { color: var(--success); }
+        .config-test-result.error { color: var(--danger); }
+        .config-test-result.testing { color: var(--warning); }
+
+        .config-actions {
+            display: flex;
+            gap: 0.6rem;
+            flex-wrap: wrap;
+        }
+
+        .config-btn-save {
+            flex: 1;
+            padding: 0.7rem 1.2rem;
+            background: linear-gradient(135deg, var(--primary), #a29bfe);
+            border: none;
+            border-radius: var(--radius-sm);
+            color: #fff;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.25s;
+        }
+
+        .config-btn-save:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(108, 92, 231, 0.4);
+        }
+
+        .config-btn-reset {
+            padding: 0.7rem 1.2rem;
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            color: var(--text2);
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .config-btn-reset:hover {
+            border-color: var(--danger);
+            color: var(--danger);
+        }
+
+        /* ---------- Tabs ---------- */
+        .tabs {
+            display: flex;
+            gap: 0.25rem;
+            padding: 0.75rem 1.5rem;
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .tabs button {
+            padding: 0.6rem 1.2rem;
+            border: none;
+            background: transparent;
+            color: var(--text2);
+            font-size: 0.9rem;
+            font-weight: 500;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .tabs button:hover {
+            background: var(--surface2);
+            color: var(--text);
+        }
+
+        .tabs button.active {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        /* ---------- Main Content ---------- */
+        main {
+            flex: 1;
+            padding: 1.5rem;
+            max-width: 1100px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .panel {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .panel.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ---------- Cards ---------- */
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            margin-bottom: 1.25rem;
+            box-shadow: var(--shadow);
+        }
+
+        .card h2 {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text);
+        }
+
+        .card h2 .badge {
+            font-size: 0.7rem;
+            background: var(--surface2);
+            padding: 0.15rem 0.5rem;
+            border-radius: 20px;
+            color: var(--text2);
+            font-weight: 400;
+        }
+
+        .card h2 .badge-free {
+            background: rgba(0, 184, 148, 0.15);
+            color: var(--success);
+            border: 1px solid rgba(0, 184, 148, 0.3);
+        }
+
+        /* ---------- Prompt Row ---------- */
+        .prompt-row {
+            display: flex;
+            gap: 0.6rem;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .prompt-row textarea {
+            flex: 1;
+            min-height: 80px;
+            padding: 0.75rem 1rem;
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            color: var(--text);
+            font-size: 0.95rem;
+            resize: vertical;
+            outline: none;
+            transition: border-color 0.2s;
+            font-family: inherit;
+        }
+
+        .prompt-row textarea:focus {
+            border-color: var(--primary);
+        }
+
+        .prompt-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+
+        .icon-btn {
+            width: 42px;
+            height: 42px;
+            border: 1px solid var(--border);
+            background: var(--surface2);
+            color: var(--text);
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .icon-btn:hover {
+            background: var(--border);
+            border-color: var(--primary);
+        }
+
+        .icon-btn.recording {
+            background: var(--danger);
+            border-color: var(--danger);
+            color: #fff;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.6); }
+            50% { box-shadow: 0 0 0 8px rgba(231, 76, 60, 0); }
+        }
+
+        /* ---------- Options Grid ---------- */
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .option-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+        }
+
+        .option-group label {
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--text2);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .option-group select,
+        .option-group input[type="number"],
+        .option-group input[type="text"] {
+            padding: 0.55rem 0.75rem;
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            color: var(--text);
+            font-size: 0.88rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .option-group select:focus,
+        .option-group input:focus {
+            border-color: var(--primary);
+        }
+
+        .option-group select option {
+            background: var(--surface2);
+            color: var(--text);
+        }
+
+        /* ---------- Info Banner ---------- */
+        .info-banner {
+            background: rgba(0, 206, 201, 0.08);
+            border: 1px solid rgba(0, 206, 201, 0.3);
+            border-radius: var(--radius-sm);
+            padding: 0.6rem 0.9rem;
+            font-size: 0.78rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+            line-height: 1.4;
+        }
+
+        .info-banner.free {
+            background: rgba(0, 184, 148, 0.08);
+            border-color: rgba(0, 184, 148, 0.3);
+            color: var(--success);
+        }
+
+        /* ---------- Upload Zone ---------- */
+        .upload-zone {
+            border: 2px dashed var(--border);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-bottom: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .upload-zone:hover {
+            border-color: var(--primary);
+            background: rgba(108, 92, 231, 0.05);
+        }
+
+        .upload-zone input[type="file"] {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .upload-zone p {
+            color: var(--text2);
+            font-size: 0.9rem;
+        }
+
+        .upload-zone .preview {
+            max-width: 200px;
+            max-height: 150px;
+            border-radius: var(--radius-sm);
+            margin-top: 0.5rem;
+            object-fit: cover;
+        }
+
+        /* ---------- Generate Button ---------- */
+        .gen-btn {
+            width: 100%;
+            padding: 0.85rem 1.5rem;
+            background: linear-gradient(135deg, var(--primary), #a29bfe);
+            border: none;
+            border-radius: var(--radius-sm);
+            color: #fff;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.25s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            box-shadow: 0 4px 15px rgba(108, 92, 231, 0.3);
+        }
+
+        .gen-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(108, 92, 231, 0.45);
+        }
+
+        .gen-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* ---------- Result Area ---------- */
+        .result-area {
+            margin-top: 1.25rem;
+        }
+
+        .result-area .placeholder {
+            color: var(--text2);
+            font-size: 0.9rem;
+            text-align: center;
+            padding: 2rem 1rem;
+            border: 1px dashed var(--border);
+            border-radius: var(--radius);
+        }
+
+        .result-area img,
+        .result-area video {
+            max-width: 100%;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            display: block;
+            margin: 0 auto;
+        }
+
+        .result-area .text-output {
+            background: var(--surface2);
+            padding: 1rem 1.25rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.95rem;
+            line-height: 1.7;
+            white-space: pre-wrap;
+            word-break: break-word;
+            border: 1px solid var(--border);
+        }
+
+        .result-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.75rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .result-actions a,
+        .result-actions button {
+            padding: 0.5rem 1rem;
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            color: var(--text);
+            text-decoration: none;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+
+        .result-actions a:hover,
+        .result-actions button:hover {
+            background: var(--border);
+            border-color: var(--primary);
+        }
+
+        /* ---------- Progress ---------- */
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: var(--surface2);
+            border-radius: 3px;
+            margin: 1rem 0;
+            overflow: hidden;
+        }
+
+        .progress-bar .fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            border-radius: 3px;
+            transition: width 0.5s ease;
+            width: 0%;
+        }
+
+        .progress-text {
+            font-size: 0.82rem;
+            color: var(--text2);
+            text-align: center;
+            margin-bottom: 0.5rem;
+        }
+
+        /* ---------- Translation Row ---------- */
+        .translate-row {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .translate-row select {
+            padding: 0.4rem 0.6rem;
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            color: var(--text);
+            font-size: 0.82rem;
+            outline: none;
+        }
+
+        .translate-row button {
+            padding: 0.4rem 0.8rem;
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            color: var(--text);
+            font-size: 0.82rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .translate-row button:hover {
+            border-color: var(--primary);
+        }
+
+        /* ---------- Toast ---------- */
+        .toast {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 0.85rem 1.25rem;
+            box-shadow: var(--shadow);
+            font-size: 0.88rem;
+            z-index: 1000;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s;
+            max-width: 350px;
+            pointer-events: none;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .toast.error {
+            border-color: var(--danger);
+        }
+
+        .toast.success {
+            border-color: var(--success);
+        }
+
+        /* ---------- Responsive ---------- */
+        @media (max-width: 600px) {
+            header {
+                padding: 0.75rem 1rem;
+                gap: 0.5rem;
+            }
+
+            .logo {
+                font-size: 1rem;
+            }
+
+            .logo span {
+                font-size: 1.2rem;
+            }
+
+            .api-key-area {
+                min-width: 140px;
+            }
+
+            .api-config-section {
+                padding: 0.5rem 0.75rem 0;
+            }
+
+            .tabs {
+                padding: 0.5rem 0.75rem;
+            }
+
+            .tabs button {
+                padding: 0.5rem 0.9rem;
+                font-size: 0.82rem;
+            }
+
+            main {
+                padding: 0.75rem;
+            }
+
+            .card {
+                padding: 1rem;
+            }
+
+            .options-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 0.6rem;
+            }
+
+            .prompt-row {
+                flex-direction: column;
+            }
+
+            .prompt-actions {
+                flex-direction: row;
+                width: 100%;
+            }
+
+            .prompt-actions .icon-btn {
+                flex: 1;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .options-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ========== HEADER ========== -->
+    <header>
+        <div class="logo">
+            <span>🧠</span> Agnes IA
+            <span class="header-badge">GRATUIT</span>
+        </div>
+        <div class="api-key-area">
+            <div class="status-dot" id="statusDot"></div>
+            <input type="password" id="apiKeyInput" placeholder="Clé API Agnes..." autocomplete="off">
+        </div>
+    </header>
+
+    <!-- ========== CONFIGURATION API ========== -->
+    <section class="api-config-section">
+        <button class="config-toggle" onclick="toggleConfigPanel()">
+            ⚙️ Configuration API <span class="toggle-arrow" id="configArrow">▼</span>
+        </button>
+
+        <div class="config-panel" id="configPanel">
+            <div class="config-grid">
+                <!-- Clé API -->
+                <div class="config-field">
+                    <label for="configApiKey">Clé API Agnes</label>
+                    <div class="config-input-row">
+                        <input type="password" id="configApiKey" placeholder="sk-..." autocomplete="off">
+                        <button class="config-btn-secondary" onclick="toggleKeyVisibility()" title="Afficher/Masquer">👁️</button>
+                    </div>
+                    <div class="config-status">
+                        <span class="status-dot-sm" id="keyStatusDot"></span>
+                        <span id="keyStatusText">Clé non configurée</span>
+                    </div>
+                </div>
+
+                <!-- Modèle vidéo (gratuit uniquement) -->
+                <div class="config-field">
+                    <label>Modèle vidéo (gratuit)</label>
+                    <select id="configVideoModel" disabled>
+                        <option value="agnes-video-2.5-flash">Agnes Video 2.5 Flash (gratuit, 720P)</option>
+                    </select>
+                    <div class="config-hint">
+                        💡 Version gratuite : modèle Flash uniquement, résolution 720P, durée 4 à 12 s.
+                    </div>
+                </div>
+
+                <!-- Test de connexion -->
+                <div class="config-field">
+                    <label>Vérification</label>
+                    <button class="config-btn-test" id="testConnectionBtn" onclick="testApiConnection()">
+                        🔍 Tester la connexion
+                    </button>
+                    <div class="config-test-result" id="testResult"></div>
+                </div>
+            </div>
+
+            <div class="config-actions">
+                <button class="config-btn-save" onclick="saveApiConfig()">💾 Sauvegarder la configuration</button>
+                <button class="config-btn-reset" onclick="resetApiConfig()">🔄 Réinitialiser</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== TABS ========== -->
+    <div class="tabs" id="tabs">
+        <button class="active" data-panel="panel-text">💬 Texte</button>
+        <button data-panel="panel-image">🖼️ Image</button>
+        <button data-panel="panel-video">🎬 Vidéo</button>
+        <button data-panel="panel-img2vid">📸➡️🎬 Image→Vidéo</button>
+    </div>
+
+    <!-- ========== MAIN ========== -->
+    <main>
+
+        <!-- ===== PANEL TEXTE ===== -->
+        <div class="panel active" id="panel-text">
+            <div class="card">
+                <h2>💬 Génération de texte <span class="badge">Chat</span></h2>
+
+                <div class="translate-row">
+                    <label style="font-size:0.8rem;color:var(--text2);">Langue de sortie :</label>
+                    <select id="textLangSelect">
+                        <option value="fr">Français</option>
+                        <option value="en">English</option>
+                        <option value="es">Español</option>
+                        <option value="de">Deutsch</option>
+                        <option value="it">Italiano</option>
+                        <option value="pt">Português</option>
+                        <option value="ar">العربية</option>
+                        <option value="zh">中文</option>
+                        <option value="ja">日本語</option>
+                        <option value="ru">Русский</option>
+                    </select>
+                    <button onclick="translatePrompt('textPrompt', 'textLangSelect')">🌐 Traduire</button>
+                </div>
+
+                <div class="prompt-row">
+                    <textarea id="textPrompt" placeholder="Posez votre question ou donnez une instruction..."></textarea>
+                    <div class="prompt-actions">
+                        <button class="icon-btn" id="micText" title="Dicter">🎤</button>
+                    </div>
+                </div>
+
+                <div class="options-grid">
+                    <div class="option-group">
+                        <label>Modèle</label>
+                        <select id="textModel">
+                            <option value="agnes-2.5-flash">Agnes 2.5 Flash (rapide, gratuit)</option>
+                            <option value="agnes-2.0-flash">Agnes 2.0 Flash (gratuit)</option>
+                        </select>
+                    </div>
+                    <div class="option-group">
+                        <label>Température</label>
+                        <input type="number" id="textTemp" value="0.7" min="0" max="2" step="0.1">
+                    </div>
+                </div>
+
+                <button class="gen-btn" id="genTextBtn" onclick="generateText()">✨ Générer le texte</button>
+
+                <div class="result-area" id="textResult">
+                    <div class="placeholder">Le résultat apparaîtra ici.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== PANEL IMAGE ===== -->
+        <div class="panel" id="panel-image">
+            <div class="card">
+                <h2>🖼️ Génération d'image <span class="badge">Texte → Image</span></h2>
+
+                <div class="translate-row">
+                    <label style="font-size:0.8rem;color:var(--text2);">Traduire le prompt en :</label>
+                    <select id="imageLangSelect">
+                        <option value="en">English</option>
+                        <option value="fr">Français</option>
+                        <option value="zh">中文</option>
+                        <option value="ja">日本語</option>
+                    </select>
+                    <button onclick="translatePrompt('imagePrompt', 'imageLangSelect')">🌐 Traduire</button>
+                </div>
+
+                <div class="prompt-row">
+                    <textarea id="imagePrompt" placeholder="Décrivez l'image que vous souhaitez générer..."></textarea>
+                    <div class="prompt-actions">
+                        <button class="icon-btn" id="micImage" title="Dicter">🎤</button>
+                    </div>
+                </div>
+
+                <div class="options-grid">
+                    <div class="option-group">
+                        <label>Modèle</label>
+                        <select id="imageModel">
+                            <option value="agnes-image-2.1-flash">Agnes Image 2.1 Flash (gratuit)</option>
+                            <option value="agnes-image-2.0-flash">Agnes Image 2.0 Flash (gratuit)</option>
+                        </select>
+                    </div>
+                    <div class="option-group">
+                        <label>Taille</label>
+                        <select id="imageSize">
+                            <option value="1K">1K</option>
+                            <option value="2K" selected>2K</option>
+                        </select>
+                    </div>
+                    <div class="option-group">
+                        <label>Ratio</label>
+                        <select id="imageRatio">
+                            <option value="1:1">1:1 (Carré)</option>
+                            <option value="16:9">16:9 (Paysage)</option>
+                            <option value="9:16">9:16 (Portrait)</option>
+                            <option value="4:3">4:3</option>
+                            <option value="3:4">3:4</option>
+                        </select>
+                    </div>
+                    <div class="option-group">
+                        <label>Style</label>
+                        <select id="imageStyle">
+                            <option value="">Automatique</option>
+                            <option value="photorealistic">Photorealistic</option>
+                            <option value="digital art">Digital Art</option>
+                            <option value="anime">Anime</option>
+                            <option value="3d render">3D Render</option>
+                            <option value="oil painting">Peinture à l'huile</option>
+                            <option value="watercolor">Aquarelle</option>
+                            <option value="cyberpunk">Cyberpunk</option>
+                        </select>
+                    </div>
+                    <div class="option-group">
+                        <label>Environnement</label>
+                        <select id="imageEnv">
+                            <option value="">Automatique</option>
+                            <option value="studio lighting">Studio</option>
+                            <option value="natural light">Lumière naturelle</option>
+                            <option value="sunset">Coucher de soleil</option>
+                            <option value="night city">Ville de nuit</option>
+                            <option value="forest">Forêt</option>
+                            <option value="ocean">Océan</option>
+                            <option value="space">Espace</option>
+                            <option value="indoor">Intérieur</option>
+                        </select>
+                    </div>
+                    <div class="option-group">
+                        <label>Format de sortie</label>
+                        <select id="imageFormat">
+                            <option value="url">URL</option>
+                            <option value="b64_json">Base64</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button class="gen-btn" id="genImageBtn" onclick="generateImage()">✨ Générer l'image</button>
+
+                <div class="result-area" id="imageResult">
+                    <div class="placeholder">L'image générée apparaîtra ici.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== PANEL VIDEO ===== -->
+        <div class="panel" id="panel-video">
+            <div class="card">
+                <h2>🎬 Génération de vidéo <span class="badge badge-free">GRATUIT · 720P</span></h2>
+
+                <div class="info-banner free">
+                    ✅ <strong>Version gratuite :</strong> Modèle <em>Agnes Video 2.5 Flash</em>, résolution 720P uniquement.
+                    Durée autorisée : <strong>4 à 12 secondes</strong>. Quota journalier appliqué par Agnes AI.
+                    En cas de forte affluence (erreur 503), la tâche est automatiquement reprogrammée.
+                </div>
+
+                <div class="translate-row">
+                    <label style="font-size:0.8rem;color:var(--text2);">Traduire le prompt en :</label>
+                    <select id="videoLangSelect">
+                        <option value="en">English</option>
+                        <option value="fr">Français</option>
+                        <option value="zh">中文</option>
+                    </select>
+                    <button onclick="translatePrompt('videoPrompt', 'videoLangSelect')">🌐 Traduire</button>
+                </div>
+
+                <div class="prompt-row">
+                    <textarea id="videoPrompt" placeholder="Décrivez la vidéo : sujet, mouvement, ambiance..."></textarea>
+                    <div class="prompt-actions">
+                        <button class="icon-btn" id="micVideo" title="Dicter">🎤</button>
+                    </div>
+                </div>
+
+                <div class="options-grid">
+                    <div class="option-group">
+                        <label>Modèle</label>
+                        <select id="videoModel">
+                            <option value="agnes-video-2.5-flash">Agnes Video 2.5 Flash (gratuit, 720P)</option>
+                        </select>
+                    </div>
+                    <div class="option-group">
+                        <label>Durée (secondes)</label>
+                        <select id="videoDuration">
+                            <option value="4">4s</option>
+                            <option value="5" selected>5s</option>
+                            <option value="8">8s</option>
+                            <option value="10">10s</option>
+                            <option value="12">12s</option>
+                        </select>
+                    </div>
+                    <div class="option-group">
+                        <label>Résolution</label>
+                        <select id="videoRes">
+                            <option value="720P" selected>720P (unique en gratuit)</option>
+                        </select>
+                    </div>
+                    <div class="option-group">
+                        <label>Ratio</label>
+                        <select id="videoRatio">
+                            <option value="16:9" selected>16:9 (Paysage)</option>
+                            <option value="9:16">9:16 (Portrait)</option>
+                            <option value="1:1">1:1 (Carré)</option>
+                            <option value="21:9">21:9 (Ultra-large)</option>
+                        </select>
+                    </div>
+                    <div class="option-group">
+                        <label>Type de mouvement</label>
+                        <select id="videoMotion">
+                            <option value="">Automatique</option>
+                            <option value="slow pan">Panoramique lent</option>
+                            <option value="dolly zoom">Dolly zoom</option>
+                            <option value="tracking shot">Travelling</option>
+                            <option value="aerial drone">Drone aérien</option>
+                            <option value="handheld">Caméra à l'épaule</option>
+                            <option value="static">Statique</option>
+                            <option value="orbit">Orbite</option>
+                            <option value="zoom in">Zoom avant</option>
+                            <option value="zoom out">Zoom arrière</option>
+                        </select>
+                    </div>
+                    <div class="option-group">
+                        <label>Environnement</label>
+                        <select id="videoEnv">
+                            <option value="">Automatique</option>
+                            <option value="cinematic">Cinématique</option>
+                            <option value="natural">Naturel</option>
+                            <option value="urban">Urbain</option>
+                            <option value="fantasy">Fantastique</option>
+                            <option value="sci-fi">Science-fiction</option>
+                            <option value="underwater">Sous-marin</option>
+                        </select>
+                    </div>
+                    <div class="option-group">
+                        <label>Prompt négatif</label>
+                        <input type="text" id="videoNeg" placeholder="Ex: flou, déformation...">
+                    </div>
+                </div>
+
+                <button class="gen-btn" id="genVideoBtn" onclick="generateVideo()">🎬 Générer la vidéo</button>
+
+                <div class="result-area" id="videoResult">
+                    <div class="placeholder">La vidéo générée apparaîtra ici (cela peut prendre du temps).</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== PANEL IMAGE → VIDEO ===== -->
+        <div class="panel" id="panel-img2vid">
+            <div class="card">
+                <h2>📸➡️🎬 Image vers Vidéo <span class="badge badge-free">GRATUIT · 720P</span></h2>
+
+                <div class="info-banner free">
+                    ✅ <strong>Version gratuite :</strong> Animer une image avec <em>Agnes Video 2.5 Flash</em> en 720P.
+                    Le mode <code>image</code> est obligatoire pour l'image-to-video. Durée : 4 à 12 s.
+                    En cas d'erreur 503, la tâche est automatiquement reprogrammée.
+                </div>
+
+                <div class="upload-zone" id="uploadZone">
+                    <input type="file" id="imageUpload" accept="image/*">
+                    <p>📁 Cliquez ou déposez une image ici</p>
+                    <img class="preview" id="uploadPreview" style="display:none;" alt="Aperçu">
+                </div>
+
+                <div class="translate-row">
+                    <label style="font-size:0.8rem;color:var(--text2);">Traduire en :</label>
+                    <select id="img2vidLangSelect">
+                        <option value="en">English</option>
+                        <option value="fr">Français</option>
+                    </select>
+                    <button onclick="translatePrompt('img2vidPrompt', 'img2vidLangSelect')">🌐 Traduire</button>
+                </div>
+
+                <div class="prompt-row">
+                    <textarea id="img2vidPrompt" placeholder="Décrivez le mouvement ou l'animation souhaitée..."></textarea>
+                    <div class="prompt-actions">
+                        <button class="icon-btn" id="micImg2vid" title="Dicter">🎤</button>
+                    </div>
+                </div>
+
+                <div class="options-grid">
+                    <div class="option-group">
+                        <label>Modèle</label>
+                        <select id="img2vidModel">
+                            <option value="agnes-video-2.5-flash">Agnes Video 2.5 Flash (gratuit, 720P)</option>
+                        </select>
+                    </div>
+                    <div class="option-group">
+                        <label>Durée (secondes)</label>
+                        <select id="img2vidDuration">
+                            <option value="4">4s</option>
+                            <option value="5" selected>5s</option>
+                            <option value="8">8s</option>
+                        </select>
+                    </div>
+                    <div class="option-group">
+                        <label>Résolution</label>
+                        <select id="img2vidRes">
+                            <option value="720P" selected>720P (unique en gratuit)</option>
+                        </select>
+                    </div>
+                    <div class="option-group">
+                        <label>Ratio</label>
+                        <select id="img2vidRatio">
+                            <option value="16:9">16:9 (Paysage)</option>
+                            <option value="9:16">9:16 (Portrait)</option>
+                            <option value="1:1">1:1 (Carré)</option>
+                        </select>
+                    </div>
+                    <div class="option-group">
+                        <label>Type de mouvement</label>
+                        <select id="img2vidMotion">
+                            <option value="">Automatique</option>
+                            <option value="slow pan">Panoramique lent</option>
+                            <option value="zoom in">Zoom avant</option>
+                            <option value="zoom out">Zoom arrière</option>
+                            <option value="parallax">Parallaxe</option>
+                            <option value="handheld">Caméra à l'épaule</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button class="gen-btn" id="genImg2vidBtn" onclick="generateImg2Vid()">🎬 Animer l'image</button>
+
+                <div class="result-area" id="img2vidResult">
+                    <div class="placeholder">La vidéo générée à partir de l'image apparaîtra ici.</div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- ========== TOAST ========== -->
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // ============================================================
+        //  CONFIGURATION GLOBALE
+        // ============================================================
+        const BASE_URL = 'https://apihub.agnes-ai.com/v1';
+        const RAW_URL = 'https://apihub.agnes-ai.com';
+        const TRANSLATE_URL = 'https://translate.googleapis.com/translate_a/single';
+
+        // Version gratuite : uniquement le modèle Flash
+        const FREE_VIDEO_MODEL = 'agnes-video-2.5-flash';
+        const VALID_VIDEO_MODELS = [FREE_VIDEO_MODEL];
+
+        // Contraintes du modèle Flash
+        const FLASH_MIN_SECONDS = 4;
+        const FLASH_MAX_SECONDS = 12;
+        const FLASH_DEFAULT_SECONDS = 5;
+
+        // Retry / backoff pour erreurs transitoires (503, 429, 500, 502)
+        const MAX_CREATE_RETRIES = 6;
+        const BACKOFF_BASE_MS = 3000;   // 3 s
+        const BACKOFF_MAX_MS = 60000;   // 60 s max
+
+        // Polling vidéo
+        const POLL_INTERVAL_MS = 5000;  // 5 s (évite les boucles trop serrées)
+        const MAX_POLL_ATTEMPTS = 120;  // ~10 minutes
+
+        let currentApiKey = '';
+        let recognition = null;
+        let currentRecordingBtn = null;
+
+        // ============================================================
+        //  UTILITAIRE : SLEEP
+        // ============================================================
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        // ============================================================
+        //  CRÉATION DE TÂCHE VIDÉO AVEC RETRY / BACKOFF
+        //  Gère les erreurs 503 (video_queue_full), 429, 500, 502
+        // ============================================================
+        async function createVideoTaskWithRetry(body, label = 'Vidéo') {
+            let lastError = null;
+
+            for (let attempt = 0; attempt <= MAX_CREATE_RETRIES; attempt++) {
+                try {
+                    const res = await fetch(`${BASE_URL}/videos`, {
+                        method: 'POST',
+                        headers: {
+                            'Authorization': `Bearer ${currentApiKey}`,
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(body)
+                    });
+
+                    // Succès
+                    if (res.ok) {
+                        return res;
+                    }
+
+                    // Erreurs transitoires : 503, 429, 500, 502, 520, 522, 524
+                    const retryable = [503, 429, 500, 502, 520, 522, 524];
+                    if (retryable.includes(res.status)) {
+                        const errData = await res.json().catch(() => ({}));
+                        const msg = errData.error?.message || `HTTP ${res.status}`;
+                        lastError = new Error(`HTTP ${res.status} — ${msg}`);
+                        // Signale à l'utilisateur
+                        if (res.status === 503) {
+                            showToast(`⏳ Service momentanément saturé (503). Nouvelle tentative…`, 'success');
+                        } else if (res.status === 429) {
+                            showToast(`⏳ Limite de requêtes atteinte (429). Nouvelle tentative…`, 'success');
+                        } else {
+                            showToast(`⏳ Erreur transitoire ${res.status}. Nouvelle tentative…`, 'success');
+                        }
+                        // Passe à la tentative suivante (backoff)
+                    } else {
+                        // Erreur définitive (400, 401, 403, 402, 404…)
+                        return res;
+                    }
+                } catch (networkErr) {
+                    // Erreur réseau
+                    lastError = networkErr;
+                    showToast(`⏳ Erreur réseau. Nouvelle tentative…`, 'success');
+                }
+
+                // Calcul du backoff exponentiel : 3s, 6s, 12s, 24s, 48s, 60s
+                if (attempt < MAX_CREATE_RETRIES) {
+                    const delay = Math.min(BACKOFF_BASE_MS * Math.pow(2, attempt), BACKOFF_MAX_MS);
+                    const seconds = Math.round(delay / 1000);
+                    console.log(`[${label}] Tentative ${attempt + 1}/${MAX_CREATE_RETRIES} échouée. Backoff ${seconds}s…`);
+                    // Mise à jour du statut UI
+                    const statusEl = document.getElementById('videoResult') || document.getElementById('img2vidResult');
+                    if (statusEl) {
+                        statusEl.innerHTML = `
+                            <div class="progress-text" style="color:var(--warning);">
+                                ⏳ Service saturé — nouvelle tentative dans ${seconds}s… (${attempt + 1}/${MAX_CREATE_RETRIES})
+                            </div>
+                            <div class="progress-bar"><div class="fill" style="width:0%"></div></div>
+                        `;
+                    }
+                    await sleep(delay);
+                }
+            }
+
+            // Toutes les tentatives ont échoué
+            throw lastError || new Error('Échec après plusieurs tentatives (service saturé).');
+        }
+
+        // ============================================================
+        //  PANNEAU DE CONFIGURATION API
+        // ============================================================
+        function toggleConfigPanel() {
+            const panel = document.getElementById('configPanel');
+            const arrow = document.getElementById('configArrow');
+            panel.classList.toggle('visible');
+            arrow.classList.toggle('open');
+        }
+
+        function toggleKeyVisibility() {
+            const input = document.getElementById('configApiKey');
+            input.type = input.type === 'password' ? 'text' : 'password';
+        }
+
+        function updateKeyStatus() {
+            const key = document.getElementById('configApiKey').value.trim();
+            const dot = document.getElementById('keyStatusDot');
+            const text = document.getElementById('keyStatusText');
+
+            if (key.length > 10 && key.startsWith('sk-')) {
+                dot.classList.add('connected');
+                text.textContent = 'Clé configurée (' + key.slice(0, 8) + '...)';
+            } else {
+                dot.classList.remove('connected');
+                text.textContent = key ? 'Format de clé invalide' : 'Clé non configurée';
+            }
+        }
+
+        async function testApiConnection() {
+            const key = document.getElementById('configApiKey').value.trim();
+            const btn = document.getElementById('testConnectionBtn');
+            const result = document.getElementById('testResult');
+            const dot = document.getElementById('keyStatusDot');
+
+            if (!key) {
+                result.textContent = '❌ Veuillez d\'abord saisir une clé API.';
+                result.className = 'config-test-result error';
+                return;
+            }
+
+            btn.disabled = true;
+            btn.textContent = '⏳ Test en cours...';
+            result.textContent = '🔍 Vérification de la clé...';
+            result.className = 'config-test-result testing';
+            dot.className = 'status-dot-sm testing';
+
+            try {
+                // Test 1 : appel chat simple pour vérifier la clé
+                const testRes = await fetch(`${BASE_URL}/chat/completions`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${key}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        model: 'agnes-2.5-flash',
+                        messages: [{ role: 'user', content: 'test' }],
+                        max_tokens: 5
+                    })
+                });
+
+                if (testRes.status === 401) throw new Error('401 — Clé API invalide ou expirée.');
+                if (testRes.status === 403) throw new Error('403 — Clé API sans permissions.');
+                if (!testRes.ok) throw new Error(`Erreur ${testRes.status} sur l'appel de test.`);
+
+                result.textContent = '✅ Clé API valide. Test du modèle vidéo Flash...';
+                result.className = 'config-test-result testing';
+
+                // Test 2 : création d'une tâche vidéo minimale (avec retry)
+                // Utilise createVideoTaskWithRetry pour gérer les 503
+                const testBody = {
+                    model: FREE_VIDEO_MODEL,
+                    prompt: 'test',
+                    seconds: '5',
+                    mode: 'text',
+                    size: '720P',
+                    aspect_ratio: '16:9'
+                };
+
+                // On utilise le retry mais avec un compteur réduit pour le test
+                let videoRes;
+                try {
+                    videoRes = await createVideoTaskWithRetry(testBody, 'Test connexion');
+                } catch (retryErr) {
+                    throw new Error(`Service saturé après plusieurs tentatives. Réessayez plus tard. Détail : ${retryErr.message}`);
+                }
+
+                if (videoRes.status === 400) {
+                    const errData = await videoRes.json().catch(() => ({}));
+                    const detail = errData.error?.message || JSON.stringify(errData);
+                    throw new Error(`400 Bad Request — Paramètres invalides. Détail : ${detail}`);
+                }
+                if (videoRes.status === 403) {
+                    const errData = await videoRes.json().catch(() => ({}));
+                    const detail = errData.error?.message || '';
+                    throw new Error(`403 Forbidden — Pas d'accès au modèle Flash. ${detail}`);
+                }
+                if (videoRes.status === 402) {
+                    throw new Error('402 — Quota journalier de génération vidéo épuisé.');
+                }
+                if (videoRes.status === 429) {
+                    throw new Error('429 — Trop de requêtes. Réessayez dans un instant.');
+                }
+                if (!videoRes.ok) {
+                    const errData = await videoRes.json().catch(() => ({}));
+                    throw new Error(errData.error?.message || `Erreur ${videoRes.status} sur le modèle vidéo.`);
+                }
+
+                const data = await videoRes.json();
+                const videoId = data.video_id || data.id || data.task_id;
+
+                if (videoId) {
+                    result.innerHTML = `✅ <strong>Succès !</strong> Votre clé peut générer des vidéos <strong>gratuites</strong>.<br>
+                        <span style="font-size:0.7rem;color:var(--text2);">Tâche de test : ${String(videoId).slice(0, 20)}…</span>`;
+                    result.className = 'config-test-result success';
+                    dot.className = 'status-dot-sm connected';
+                } else {
+                    throw new Error('Réponse inattendue : aucun identifiant de tâche.');
+                }
+
+            } catch (err) {
+                console.error('Test API :', err);
+                result.textContent = '❌ ' + err.message;
+                result.className = 'config-test-result error';
+                dot.className = 'status-dot-sm';
+            } finally {
+                btn.disabled = false;
+                btn.textContent = '🔍 Tester la connexion';
+            }
+        }
+
+        function saveApiConfig() {
+            const key = document.getElementById('configApiKey').value.trim();
+
+            if (!key) {
+                showToast('Veuillez saisir une clé API.', 'error');
+                return;
+            }
+
+            localStorage.setItem('agnes_api_key', key);
+            localStorage.setItem('agnes_video_model', FREE_VIDEO_MODEL);
+
+            currentApiKey = key;
+
+            const headerInput = document.getElementById('apiKeyInput');
+            const headerDot = document.getElementById('statusDot');
+            if (headerInput) headerInput.value = key;
+            if (headerDot) headerDot.classList.toggle('connected', key.length > 10);
+
+            showToast('✅ Configuration sauvegardée !', 'success');
+        }
+
+        function resetApiConfig() {
+            if (!confirm('Réinitialiser toute la configuration API ?')) return;
+
+            localStorage.removeItem('agnes_api_key');
+            localStorage.removeItem('agnes_video_model');
+
+            document.getElementById('configApiKey').value = '';
+            document.getElementById('testResult').textContent = '';
+            document.getElementById('testResult').className = 'config-test-result';
+
+            currentApiKey = '';
+            updateKeyStatus();
+
+            const headerInput = document.getElementById('apiKeyInput');
+            const headerDot = document.getElementById('statusDot');
+            if (headerInput) headerInput.value = '';
+            if (headerDot) headerDot.classList.remove('connected');
+
+            showToast('🔄 Configuration réinitialisée.', 'success');
+        }
+
+        // ============================================================
+        //  HEADER — SAISIE DIRECTE DE LA CLÉ
+        // ============================================================
+        const apiKeyInput = document.getElementById('apiKeyInput');
+        const statusDot = document.getElementById('statusDot');
+
+        apiKeyInput.addEventListener('input', () => {
+            currentApiKey = apiKeyInput.value.trim();
+            statusDot.classList.toggle('connected', currentApiKey.length > 10);
+            const cfg = document.getElementById('configApiKey');
+            if (cfg) cfg.value = currentApiKey;
+            updateKeyStatus();
+        });
+
+        apiKeyInput.addEventListener('blur', () => {
+            localStorage.setItem('agnes_api_key', apiKeyInput.value.trim());
+        });
+
+        // ============================================================
+        //  NAVIGATION PAR ONGLETS
+        // ============================================================
+        document.querySelectorAll('#tabs button').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('#tabs button').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+                btn.classList.add('active');
+                document.getElementById(btn.dataset.panel).classList.add('active');
+            });
+        });
+
+        // ============================================================
+        //  RECONNAISSANCE VOCALE
+        // ============================================================
+        function initSpeechRecognition(btnId, textareaId, lang = 'fr-FR') {
+            const btn = document.getElementById(btnId);
+            const textarea = document.getElementById(textareaId);
+
+            btn.addEventListener('click', () => {
+                if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+                    showToast('La reconnaissance vocale n\'est pas supportée par ce navigateur.', 'error');
+                    return;
+                }
+
+                if (recognition && currentRecordingBtn) {
+                    recognition.stop();
+                    currentRecordingBtn.classList.remove('recording');
+                    if (currentRecordingBtn === btn) {
+                        currentRecordingBtn = null;
+                        return;
+                    }
+                }
+
+                const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+                recognition = new SpeechRecognition();
+                recognition.lang = lang;
+                recognition.interimResults = false;
+                recognition.maxAlternatives = 1;
+
+                recognition.onstart = () => {
+                    btn.classList.add('recording');
+                    currentRecordingBtn = btn;
+                    showToast('🎤 Écoute en cours...', 'success');
+                };
+
+                recognition.onresult = (event) => {
+                    const transcript = event.results[0][0].transcript;
+                    textarea.value += (textarea.value ? ' ' : '') + transcript;
+                };
+
+                recognition.onerror = (event) => {
+                    console.error('Erreur reconnaissance:', event.error);
+                    if (event.error === 'not-allowed') {
+                        showToast('Accès au micro refusé. Autorisez-le dans les paramètres.', 'error');
+                    } else {
+                        showToast('Erreur de reconnaissance vocale: ' + event.error, 'error');
+                    }
+                };
+
+                recognition.onend = () => {
+                    btn.classList.remove('recording');
+                    currentRecordingBtn = null;
+                };
+
+                recognition.start();
+            });
+        }
+
+        initSpeechRecognition('micText', 'textPrompt', 'fr-FR');
+        initSpeechRecognition('micImage', 'imagePrompt', 'fr-FR');
+        initSpeechRecognition('micVideo', 'videoPrompt', 'fr-FR');
+        initSpeechRecognition('micImg2vid', 'img2vidPrompt', 'fr-FR');
+
+        // ============================================================
+        //  TRADUCTION
+        // ============================================================
+        async function translatePrompt(textareaId, selectId) {
+            const textarea = document.getElementById(textareaId);
+            const targetLang = document.getElementById(selectId).value;
+            const text = textarea.value.trim();
+
+            if (!text) {
+                showToast('Veuillez d\'abord saisir un texte.', 'error');
+                return;
+            }
+
+            try {
+                showToast('🌐 Traduction en cours...', 'success');
+                const url = `${TRANSLATE_URL}?client=gtx&sl=auto&tl=${targetLang}&dt=t&q=${encodeURIComponent(text)}`;
+                const res = await fetch(url);
+                const data = await res.json();
+                const translated = data[0].map(item => item[0]).join('');
+                textarea.value = translated;
+                showToast('✅ Traduction terminée !', 'success');
+            } catch (err) {
+                console.error('Erreur traduction:', err);
+                showToast('Erreur de traduction. Vérifiez votre connexion.', 'error');
+            }
+        }
+
+        // ============================================================
+        //  GÉNÉRATION DE TEXTE
+        // ============================================================
+        async function generateText() {
+            const prompt = document.getElementById('textPrompt').value.trim();
+            const model = document.getElementById('textModel').value;
+            const temperature = parseFloat(document.getElementById('textTemp').value) || 0.7;
+
+            if (!prompt) {
+                showToast('Veuillez saisir un prompt.', 'error');
+                return;
+            }
+            if (!currentApiKey) {
+                showToast('Veuillez entrer votre clé API Agnes.', 'error');
+                return;
+            }
+
+            const btn = document.getElementById('genTextBtn');
+            btn.disabled = true;
+            btn.textContent = '⏳ Génération...';
+            document.getElementById('textResult').innerHTML = '<div class="placeholder">Génération en cours...</div>';
+
+            try {
+                const res = await fetch(`${BASE_URL}/chat/completions`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${currentApiKey}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        model: model,
+                        messages: [{ role: 'user', content: prompt }],
+                        temperature: temperature
+                    })
+                });
+
+                if (!res.ok) {
+                    const errData = await res.json().catch(() => ({}));
+                    throw new Error(errData.error?.message || `Erreur ${res.status}`);
+                }
+
+                const data = await res.json();
+                const content = data.choices?.[0]?.message?.content || 'Aucune réponse.';
+
+                document.getElementById('textResult').innerHTML = `
+                    <div class="text-output">${escapeHtml(content)}</div>
+                    <div class="result-actions">
+                        <button onclick="copyToClipboard(\`${escapeBacktick(content)}\`)">📋 Copier</button>
+                    </div>
+                `;
+                showToast('✅ Texte généré !', 'success');
+            } catch (err) {
+                console.error(err);
+                document.getElementById('textResult').innerHTML = `<div class="placeholder" style="color:var(--danger);">❌ ${escapeHtml(err.message)}</div>`;
+                showToast(err.message, 'error');
+            } finally {
+                btn.disabled = false;
+                btn.textContent = '✨ Générer le texte';
+            }
+        }
+
+        // ============================================================
+        //  GÉNÉRATION D'IMAGE
+        // ============================================================
+        async function generateImage() {
+            const prompt = document.getElementById('imagePrompt').value.trim();
+            const model = document.getElementById('imageModel').value;
+            const size = document.getElementById('imageSize').value;
+            const ratio = document.getElementById('imageRatio').value;
+            const style = document.getElementById('imageStyle').value;
+            const env = document.getElementById('imageEnv').value;
+            const format = document.getElementById('imageFormat').value;
+
+            if (!prompt) {
+                showToast('Veuillez décrire l\'image souhaitée.', 'error');
+                return;
+            }
+            if (!currentApiKey) {
+                showToast('Veuillez entrer votre clé API Agnes.', 'error');
+                return;
+            }
+
+            let fullPrompt = prompt;
+            if (style) fullPrompt += `, style: ${style}`;
+            if (env) fullPrompt += `, environment: ${env}`;
+
+            const btn = document.getElementById('genImageBtn');
+            btn.disabled = true;
+            btn.textContent = '⏳ Génération...';
+            document.getElementById('imageResult').innerHTML = '<div class="placeholder">Génération de l\'image en cours...</div>';
+
+            try {
+                const body = {
+                    model: model,
+                    prompt: fullPrompt,
+                    size: size,
+                    ratio: ratio,
+                    extra_body: {
+                        response_format: format
+                    }
+                };
+
+                const res = await fetch(`${BASE_URL}/images/generations`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${currentApiKey}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(body)
+                });
+
+                if (!res.ok) {
+                    const errData = await res.json().catch(() => ({}));
+                    throw new Error(errData.error?.message || `Erreur ${res.status}`);
+                }
+
+                const data = await res.json();
+                const imageData = data.data?.[0];
+
+                let html = '';
+                if (imageData?.url) {
+                    html = `
+                        <img src="${imageData.url}" alt="Image générée">
+                        <div class="result-actions">
+                            <a href="${imageData.url}" download target="_blank">⬇️ Télécharger</a>
+                        </div>
+                    `;
+                } else if (imageData?.b64_json) {
+                    const src = `data:image/png;base64,${imageData.b64_json}`;
+                    html = `
+                        <img src="${src}" alt="Image générée">
+                        <div class="result-actions">
+                            <a href="${src}" download="agnes-image.png">⬇️ Télécharger</a>
+                        </div>
+                    `;
+                } else {
+                    html = '<div class="placeholder" style="color:var(--danger);">Aucune image retournée.</div>';
+                }
+
+                document.getElementById('imageResult').innerHTML = html;
+                showToast('✅ Image générée !', 'success');
+            } catch (err) {
+                console.error(err);
+                document.getElementById('imageResult').innerHTML = `<div class="placeholder" style="color:var(--danger);">❌ ${escapeHtml(err.message)}</div>`;
+                showToast(err.message, 'error');
+            } finally {
+                btn.disabled = false;
+                btn.textContent = '✨ Générer l\'image';
+            }
+        }
+
+        // ============================================================
+        //  GÉNÉRATION DE VIDÉO (TEXTE → VIDÉO) — GRATUIT
+        //  Utilise createVideoTaskWithRetry pour gérer les 503
+        // ============================================================
+        async function generateVideo() {
+            const prompt = document.getElementById('videoPrompt').value.trim();
+            const model = document.getElementById('videoModel').value;
+            const duration = document.getElementById('videoDuration').value;
+            const ratio = document.getElementById('videoRatio').value;
+            const motion = document.getElementById('videoMotion').value;
+            const env = document.getElementById('videoEnv').value;
+            const negative = document.getElementById('videoNeg').value.trim();
+
+            if (!prompt) {
+                showToast('Veuillez décrire la vidéo souhaitée.', 'error');
+                return;
+            }
+            if (!currentApiKey) {
+                showToast('Veuillez entrer votre clé API Agnes.', 'error');
+                return;
+            }
+
+            if (!VALID_VIDEO_MODELS.includes(model)) {
+                showToast('Seul le modèle gratuit agnes-video-2.5-flash est disponible.', 'error');
+                return;
+            }
+
+            const durationNum = parseInt(duration, 10);
+            if (durationNum < FLASH_MIN_SECONDS || durationNum > FLASH_MAX_SECONDS) {
+                showToast(`La durée doit être comprise entre ${FLASH_MIN_SECONDS} et ${FLASH_MAX_SECONDS} secondes.`, 'error');
+                return;
+            }
+
+            let fullPrompt = prompt;
+            if (motion) fullPrompt += `, camera movement: ${motion}`;
+            if (env) fullPrompt += `, environment: ${env}`;
+
+            const btn = document.getElementById('genVideoBtn');
+            btn.disabled = true;
+            btn.textContent = '⏳ Création de la tâche...';
+            document.getElementById('videoResult').innerHTML = '<div class="placeholder">Création de la tâche vidéo...</div>';
+
+            try {
+                const body = {
+                    model: model,
+                    prompt: fullPrompt,
+                    seconds: String(duration),
+                    mode: 'text',
+                    size: '720P',
+                    aspect_ratio: ratio
+                };
+                if (negative) body.negative_prompt = negative;
+
+                // ⚠️ Utilise le retry avec backoff pour gérer les 503
+                let createRes;
+                try {
+                    createRes = await createVideoTaskWithRetry(body, 'Texte→Vidéo');
+                } catch (retryErr) {
+                    throw new Error(`Service saturé après plusieurs tentatives. ${retryErr.message}`);
+                }
+
+                if (!createRes.ok) {
+                    const errData = await createRes.json().catch(() => ({}));
+                    const msg = errData.error?.message || `Erreur ${createRes.status}`;
+                    if (createRes.status === 400) {
+                        throw new Error(`400 — Paramètres invalides. Détail : ${msg}`);
+                    }
+                    if (createRes.status === 403) {
+                        throw new Error(`403 Forbidden — Accès au modèle gratuit refusé. Détail : ${msg}`);
+                    }
+                    if (createRes.status === 402) {
+                        throw new Error(`402 — Quota journalier de génération vidéo épuisé.`);
+                    }
+                    throw new Error(msg);
+                }
+
+                const createData = await createRes.json();
+                const videoId = createData.video_id || createData.id || createData.task_id;
+
+                if (!videoId) {
+                    throw new Error('Aucun identifiant de tâche retourné.');
+                }
+
+                await pollVideoResult(videoId, model, 'videoResult');
+
+            } catch (err) {
+                console.error(err);
+                document.getElementById('videoResult').innerHTML = `<div class="placeholder" style="color:var(--danger);">❌ ${escapeHtml(err.message)}</div>`;
+                showToast(err.message, 'error');
+            } finally {
+                btn.disabled = false;
+                btn.textContent = '🎬 Générer la vidéo';
+            }
+        }
+
+        // ============================================================
+        //  GÉNÉRATION IMAGE → VIDÉO — GRATUIT
+        //  Utilise createVideoTaskWithRetry pour gérer les 503
+        // ============================================================
+        let uploadedImageBase64 = null;
+
+        document.getElementById('imageUpload').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(ev) {
+                uploadedImageBase64 = ev.target.result;
+                const preview = document.getElementById('uploadPreview');
+                preview.src = uploadedImageBase64;
+                preview.style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+        });
+
+        const uploadZone = document.getElementById('uploadZone');
+        uploadZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadZone.style.borderColor = 'var(--primary)';
+        });
+        uploadZone.addEventListener('dragleave', () => {
+            uploadZone.style.borderColor = 'var(--border)';
+        });
+        uploadZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadZone.style.borderColor = 'var(--border)';
+            const file = e.dataTransfer.files[0];
+            if (file && file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = function(ev) {
+                    uploadedImageBase64 = ev.target.result;
+                    const preview = document.getElementById('uploadPreview');
+                    preview.src = uploadedImageBase64;
+                    preview.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        async function generateImg2Vid() {
+            const prompt = document.getElementById('img2vidPrompt').value.trim();
+            const model = document.getElementById('img2vidModel').value;
+            const duration = document.getElementById('img2vidDuration').value;
+            const ratio = document.getElementById('img2vidRatio').value;
+            const motion = document.getElementById('img2vidMotion').value;
+
+            if (!uploadedImageBase64) {
+                showToast('Veuillez d\'abord télécharger une image.', 'error');
+                return;
+            }
+            if (!currentApiKey) {
+                showToast('Veuillez entrer votre clé API Agnes.', 'error');
+                return;
+            }
+
+            if (!VALID_VIDEO_MODELS.includes(model)) {
+                showToast('Seul le modèle gratuit agnes-video-2.5-flash est disponible.', 'error');
+                return;
+            }
+
+            const durationNum = parseInt(duration, 10);
+            if (durationNum < FLASH_MIN_SECONDS || durationNum > FLASH_MAX_SECONDS) {
+                showToast(`La durée doit être comprise entre ${FLASH_MIN_SECONDS} et ${FLASH_MAX_SECONDS} secondes.`, 'error');
+                return;
+            }
+
+            let fullPrompt = prompt || 'Animate this image with natural motion';
+            if (motion) fullPrompt += `, camera movement: ${motion}`;
+
+            const btn = document.getElementById('genImg2vidBtn');
+            btn.disabled = true;
+            btn.textContent = '⏳ Création de la tâche...';
+            document.getElementById('img2vidResult').innerHTML = '<div class="placeholder">Création de la tâche vidéo...</div>';
+
+            try {
+                const body = {
+                    model: model,
+                    prompt: fullPrompt,
+                    seconds: String(duration),
+                    mode: 'image',
+                    size: '720P',
+                    aspect_ratio: ratio,
+                    image: uploadedImageBase64
+                };
+
+                // ⚠️ Utilise le retry avec backoff pour gérer les 503
+                let createRes;
+                try {
+                    createRes = await createVideoTaskWithRetry(body, 'Image→Vidéo');
+                } catch (retryErr) {
+                    throw new Error(`Service saturé après plusieurs tentatives. ${retryErr.message}`);
+                }
+
+                if (!createRes.ok) {
+                    const errData = await createRes.json().catch(() => ({}));
+                    const msg = errData.error?.message || `Erreur ${createRes.status}`;
+                    if (createRes.status === 400) {
+                        throw new Error(`400 — Paramètres invalides. Détail : ${msg}`);
+                    }
+                    if (createRes.status === 403) {
+                        throw new Error(`403 Forbidden — Accès refusé pour l'image-to-video. Détail : ${msg}`);
+                    }
+                    if (createRes.status === 402) {
+                        throw new Error(`402 — Quota journalier épuisé.`);
+                    }
+                    throw new Error(msg);
+                }
+
+                const createData = await createRes.json();
+                const videoId = createData.video_id || createData.id || createData.task_id;
+
+                if (!videoId) {
+                    throw new Error('Aucun identifiant de tâche retourné.');
+                }
+
+                await pollVideoResult(videoId, model, 'img2vidResult');
+
+            } catch (err) {
+                console.error(err);
+                document.getElementById('img2vidResult').innerHTML = `<div class="placeholder" style="color:var(--danger);">❌ ${escapeHtml(err.message)}</div>`;
+                showToast(err.message, 'error');
+            } finally {
+                btn.disabled = false;
+                btn.textContent = '🎬 Animer l\'image';
+            }
+        }
+
+        // ============================================================
+        //  POLLING DU RÉSULTAT VIDÉO
+        //  Intervalle augmenté à 5 s pour éviter les 503 sur le polling
+        // ============================================================
+        async function pollVideoResult(videoId, model, resultContainerId) {
+            const container = document.getElementById(resultContainerId);
+            let attempts = 0;
+
+            container.innerHTML = `
+                <div class="progress-text" id="progText_${resultContainerId}">⏳ Génération en cours...</div>
+                <div class="progress-bar"><div class="fill" id="progFill_${resultContainerId}"></div></div>
+            `;
+
+            const interval = setInterval(async () => {
+                attempts++;
+                if (attempts > MAX_POLL_ATTEMPTS) {
+                    clearInterval(interval);
+                    container.innerHTML = '<div class="placeholder" style="color:var(--warning);">⏰ Délai dépassé. La vidéo est peut-être encore en cours de génération.</div>';
+                    return;
+                }
+
+                try {
+                    const url = `${RAW_URL}/agnesapi?video_id=${encodeURIComponent(videoId)}&model_name=${encodeURIComponent(model)}`;
+                    const res = await fetch(url, {
+                        headers: { 'Authorization': `Bearer ${currentApiKey}` }
+                    });
+
+                    if (!res.ok) return;
+
+                    const data = await res.json();
+                    const status = data.status || data.state || 'unknown';
+                    const progress = data.progress || 0;
+
+                    const fill = document.getElementById(`progFill_${resultContainerId}`);
+                    const text = document.getElementById(`progText_${resultContainerId}`);
+                    if (fill) fill.style.width = `${Math.min(progress, 100)}%`;
+                    if (text) text.textContent = `⏳ Statut : ${status} (${progress}%)`;
+
+                    if (status === 'completed' || status === 'succeeded' || status === 'success') {
+                        clearInterval(interval);
+                        const videoUrl = data.metadata?.url || data.url || data.output?.url;
+
+                        if (videoUrl) {
+                            container.innerHTML = `
+                                <video controls src="${videoUrl}" style="width:100%;border-radius:12px;"></video>
+                                <div class="result-actions">
+                                    <a href="${videoUrl}" download target="_blank">⬇️ Télécharger la vidéo</a>
+                                </div>
+                            `;
+                        } else {
+                            container.innerHTML = '<div class="placeholder" style="color:var(--warning);">Vidéo terminée mais aucune URL trouvée.</div>';
+                        }
+                        showToast('✅ Vidéo générée !', 'success');
+                    } else if (status === 'failed' || status === 'error') {
+                        clearInterval(interval);
+                        container.innerHTML = `<div class="placeholder" style="color:var(--danger);">❌ Échec : ${data.error || 'Erreur inconnue'}</div>`;
+                        showToast('La génération a échoué.', 'error');
+                    }
+                } catch (err) {
+                    console.error('Polling error:', err);
+                }
+            }, POLL_INTERVAL_MS);
+        }
+
+        // ============================================================
+        //  UTILITAIRES
+        // ============================================================
+        function escapeHtml(str) {
+            if (!str) return '';
+            return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        }
+
+        function escapeBacktick(str) {
+            return str.replace(/\\/g, '\\\\').replace(/`/g, '\\`').replace(/\$/g, '\\$');
+        }
+
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                showToast('📋 Copié dans le presse-papiers !', 'success');
+            }).catch(() => {
+                showToast('Impossible de copier.', 'error');
+            });
+        }
+
+        let toastTimeout = null;
+        function showToast(message, type = '') {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = 'toast show ' + type;
+
+            clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3500);
+        }
+
+        // ============================================================
+        //  INITIALISATION
+        // ============================================================
+        (function init() {
+            const savedKey = localStorage.getItem('agnes_api_key');
+            if (savedKey) {
+                apiKeyInput.value = savedKey;
+                currentApiKey = savedKey;
+                statusDot.classList.add('connected');
+                document.getElementById('configApiKey').value = savedKey;
+                updateKeyStatus();
+            }
+
+            console.log('🧠 Interface Agnes IA prête ! (version gratuite)');
+            console.log('📌 Modèle vidéo unique :', FREE_VIDEO_MODEL);
+            console.log('📌 Résolution forcée : 720P');
+            console.log(`📌 Durée autorisée : ${FLASH_MIN_SECONDS}s à ${FLASH_MAX_SECONDS}s`);
+            console.log(`📌 Retry/backoff : ${MAX_CREATE_RETRIES} tentatives max, backoff exponentiel jusqu'à ${BACKOFF_MAX_MS / 1000}s`);
+            console.log(`📌 Polling : toutes les ${POLL_INTERVAL_MS / 1000}s`);
+        })();
+    </script>
+</body>
+</html>
