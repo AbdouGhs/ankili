@@ -145,16 +145,6 @@
             font-size: 0.75rem; font-weight: 600; color: var(--text2);
             text-transform: uppercase; letter-spacing: 0.5px;
         }
-        .config-field select {
-            padding: 0.55rem 0.75rem;
-            background: var(--surface2);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-sm);
-            color: var(--text);
-            font-size: 0.88rem;
-            outline: none;
-        }
-        .config-field select:focus { border-color: var(--primary); }
         .config-hint { font-size: 0.72rem; color: var(--text2); font-style: italic; }
 
         .config-test-btn {
@@ -230,11 +220,6 @@
             border-radius: 20px;
             color: var(--text2);
             font-weight: 400;
-        }
-        .card h2 .badge-free {
-            background: rgba(0, 184, 148, 0.15);
-            color: var(--success);
-            border: 1px solid rgba(0, 184, 148, 0.3);
         }
 
         .prompt-row { display: flex; gap: 0.6rem; align-items: flex-start; margin-bottom: 1rem; }
@@ -319,27 +304,6 @@
             line-height: 1.4;
         }
 
-        .upload-zone {
-            border: 2px dashed var(--border);
-            border-radius: var(--radius);
-            padding: 1.5rem;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.2s;
-            margin-bottom: 1rem;
-            position: relative;
-            overflow: hidden;
-        }
-        .upload-zone:hover { border-color: var(--primary); background: rgba(108, 92, 231, 0.05); }
-        .upload-zone input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
-        .upload-zone p { color: var(--text2); font-size: 0.9rem; }
-        .upload-zone .preview {
-            max-width: 200px; max-height: 150px;
-            border-radius: var(--radius-sm);
-            margin-top: 0.5rem;
-            object-fit: cover;
-        }
-
         .gen-btn {
             width: 100%;
             padding: 0.85rem 1.5rem;
@@ -369,7 +333,7 @@
             border: 1px dashed var(--border);
             border-radius: var(--radius);
         }
-        .result-area img, .result-area video {
+        .result-area img {
             max-width: 100%;
             border-radius: var(--radius);
             box-shadow: var(--shadow);
@@ -411,28 +375,6 @@
         .result-actions a:hover, .result-actions button:hover {
             background: var(--border);
             border-color: var(--primary);
-        }
-
-        .progress-bar {
-            width: 100%;
-            height: 6px;
-            background: var(--surface2);
-            border-radius: 3px;
-            margin: 1rem 0;
-            overflow: hidden;
-        }
-        .progress-bar .fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--primary), var(--accent));
-            border-radius: 3px;
-            transition: width 0.5s ease;
-            width: 0%;
-        }
-        .progress-text {
-            font-size: 0.82rem;
-            color: var(--text2);
-            text-align: center;
-            margin-bottom: 0.5rem;
         }
 
         .translate-row {
@@ -518,7 +460,7 @@
                      alt="Drapeau des Comores">
             </div>
             <h1><strong>Ankili</strong> IA</h1>
-            <p>Génération de texte, d'images et de vidéos — depuis les Comores</p>
+            <p>Génération de texte et d'images — depuis les Comores</p>
         </div>
     </div>
 
@@ -534,13 +476,6 @@
     <!-- ========== PANNEAU CONFIG ========== -->
     <div class="config-panel" id="configPanel">
         <div class="config-inner">
-            <div class="config-field">
-                <label>Modèle vidéo</label>
-                <select id="configVideoModel" disabled>
-                    <option value="agnes-video-2.5-flash">Agnes Video 2.5 Flash (720P)</option>
-                </select>
-                <div class="config-hint">Modèle vidéo unique disponible.</div>
-            </div>
             <div class="config-field">
                 <label>Vérification</label>
                 <button class="config-test-btn" id="testConnectionBtn" onclick="testApiConnection()">🔍 Tester la connexion</button>
@@ -558,8 +493,6 @@
     <div class="tabs" id="tabs">
         <button class="active" data-panel="panel-text">💬 Texte</button>
         <button data-panel="panel-image">🖼️ Image</button>
-        <button data-panel="panel-video">🎬 Vidéo</button>
-        <button data-panel="panel-img2vid">📸➡️🎬 Image→Vidéo</button>
     </div>
 
     <!-- ========== MAIN ========== -->
@@ -670,152 +603,6 @@
                 <div class="result-area" id="imageResult"><div class="placeholder">L'image générée apparaîtra ici.</div></div>
             </div>
         </div>
-
-        <!-- VIDEO -->
-        <div class="panel" id="panel-video">
-            <div class="card">
-                <h2>🎬 Génération de vidéo <span class="badge badge-free">GRATUIT · 720P</span></h2>
-                <div class="info-banner">
-                    ✅ Modèle <em>Agnes Video 2.5 Flash</em> — résolution 720P, durée 4 à 12 s.
-                </div>
-                <div class="translate-row">
-                    <label>Traduire en :</label>
-                    <select id="videoLangSelect">
-                        <option value="en">English</option><option value="fr">Français</option><option value="zh">中文</option>
-                    </select>
-                    <button onclick="translatePrompt('videoPrompt', 'videoLangSelect')">🌐 Traduire</button>
-                </div>
-                <div class="prompt-row">
-                    <textarea id="videoPrompt" placeholder="Décrivez la vidéo : sujet, mouvement, ambiance..."></textarea>
-                    <div class="prompt-actions"><button class="icon-btn" id="micVideo" title="Dicter">🎤</button></div>
-                </div>
-                <div class="options-grid">
-                    <div class="option-group">
-                        <label>Modèle</label>
-                        <select id="videoModel">
-                            <option value="agnes-video-2.5-flash">Agnes Video 2.5 Flash (720P)</option>
-                        </select>
-                    </div>
-                    <div class="option-group">
-                        <label>Durée (secondes)</label>
-                        <select id="videoDuration">
-                            <option value="4">4s</option>
-                            <option value="5" selected>5s</option>
-                            <option value="8">8s</option>
-                            <option value="10">10s</option>
-                            <option value="12">12s</option>
-                        </select>
-                    </div>
-                    <div class="option-group">
-                        <label>Ratio</label>
-                        <select id="videoRatio">
-                            <option value="16:9" selected>16:9 (Paysage)</option>
-                            <option value="9:16">9:16 (Portrait)</option>
-                            <option value="1:1">1:1 (Carré)</option>
-                            <option value="21:9">21:9 (Ultra-large)</option>
-                        </select>
-                    </div>
-                    <div class="option-group">
-                        <label>Mouvement</label>
-                        <select id="videoMotion">
-                            <option value="">Automatique</option>
-                            <option value="slow pan">Panoramique lent</option>
-                            <option value="dolly zoom">Dolly zoom</option>
-                            <option value="tracking shot">Travelling</option>
-                            <option value="aerial drone">Drone aérien</option>
-                            <option value="handheld">Caméra à l'épaule</option>
-                            <option value="static">Statique</option>
-                            <option value="orbit">Orbite</option>
-                            <option value="zoom in">Zoom avant</option>
-                            <option value="zoom out">Zoom arrière</option>
-                        </select>
-                    </div>
-                    <div class="option-group">
-                        <label>Environnement</label>
-                        <select id="videoEnv">
-                            <option value="">Automatique</option>
-                            <option value="cinematic">Cinématique</option>
-                            <option value="natural">Naturel</option>
-                            <option value="urban">Urbain</option>
-                            <option value="fantasy">Fantastique</option>
-                            <option value="sci-fi">Science-fiction</option>
-                            <option value="underwater">Sous-marin</option>
-                        </select>
-                    </div>
-                    <div class="option-group">
-                        <label>Prompt négatif</label>
-                        <input type="text" id="videoNeg" placeholder="Ex: flou, déformation...">
-                    </div>
-                </div>
-                <button class="gen-btn" id="genVideoBtn" onclick="generateVideo()">🎬 Générer la vidéo</button>
-                <div class="result-area" id="videoResult"><div class="placeholder">La vidéo générée apparaîtra ici (cela peut prendre du temps).</div></div>
-            </div>
-        </div>
-
-        <!-- IMAGE → VIDEO -->
-        <div class="panel" id="panel-img2vid">
-            <div class="card">
-                <h2>📸➡️🎬 Image vers Vidéo <span class="badge badge-free">GRATUIT · 720P</span></h2>
-                <div class="info-banner">
-                    ✅ Animer une image en 720P avec <em>Agnes Video 2.5 Flash</em>.
-                </div>
-                <div class="upload-zone" id="uploadZone">
-                    <input type="file" id="imageUpload" accept="image/*">
-                    <p>📁 Cliquez ou déposez une image ici</p>
-                    <img class="preview" id="uploadPreview" style="display:none;" alt="Aperçu">
-                </div>
-                <div class="translate-row">
-                    <label>Traduire en :</label>
-                    <select id="img2vidLangSelect">
-                        <option value="en">English</option><option value="fr">Français</option>
-                    </select>
-                    <button onclick="translatePrompt('img2vidPrompt', 'img2vidLangSelect')">🌐 Traduire</button>
-                </div>
-                <div class="prompt-row">
-                    <textarea id="img2vidPrompt" placeholder="Décrivez le mouvement ou l'animation souhaitée..."></textarea>
-                    <div class="prompt-actions"><button class="icon-btn" id="micImg2vid" title="Dicter">🎤</button></div>
-                </div>
-                <div class="options-grid">
-                    <div class="option-group">
-                        <label>Modèle</label>
-                        <select id="img2vidModel">
-                            <option value="agnes-video-2.5-flash">Agnes Video 2.5 Flash (720P)</option>
-                        </select>
-                    </div>
-                    <div class="option-group">
-                        <label>Durée (secondes)</label>
-                        <select id="img2vidDuration">
-                            <option value="4">4s</option>
-                            <option value="5" selected>5s</option>
-                            <option value="8">8s</option>
-                            <option value="10">10s</option>
-                            <option value="12">12s</option>
-                        </select>
-                    </div>
-                    <div class="option-group">
-                        <label>Ratio</label>
-                        <select id="img2vidRatio">
-                            <option value="16:9">16:9 (Paysage)</option>
-                            <option value="9:16">9:16 (Portrait)</option>
-                            <option value="1:1">1:1 (Carré)</option>
-                        </select>
-                    </div>
-                    <div class="option-group">
-                        <label>Mouvement</label>
-                        <select id="img2vidMotion">
-                            <option value="">Automatique</option>
-                            <option value="slow pan">Panoramique lent</option>
-                            <option value="zoom in">Zoom avant</option>
-                            <option value="zoom out">Zoom arrière</option>
-                            <option value="parallax">Parallaxe</option>
-                            <option value="handheld">Caméra à l'épaule</option>
-                        </select>
-                    </div>
-                </div>
-                <button class="gen-btn" id="genImg2vidBtn" onclick="generateImg2Vid()">🎬 Animer l'image</button>
-                <div class="result-area" id="img2vidResult"><div class="placeholder">La vidéo générée à partir de l'image apparaîtra ici.</div></div>
-            </div>
-        </div>
     </main>
 
     <div class="toast" id="toast"></div>
@@ -825,29 +612,11 @@
         //  CONFIGURATION
         // ============================================================
         const BASE_URL = 'https://apihub.agnes-ai.com/v1';
-        const RAW_URL = 'https://apihub.agnes-ai.com';
         const TRANSLATE_URL = 'https://translate.googleapis.com/translate_a/single';
-
-        const FREE_VIDEO_MODEL = 'agnes-video-2.5-flash';
-        const VALID_VIDEO_MODELS = [FREE_VIDEO_MODEL];
-
-        const FLASH_MIN_SECONDS = 4;
-        const FLASH_MAX_SECONDS = 12;
-
-        // Polling vidéo
-        const POLL_INTERVAL_MS = 5000;
-        const MAX_POLL_ATTEMPTS = 120;
-
-        // Retry 503 / 429 / 5xx
-        const MAX_CREATE_RETRIES = 6;
-        const BACKOFF_BASE_MS = 3000;
-        const BACKOFF_MAX_MS = 60000;
 
         let currentApiKey = '';
         let recognition = null;
         let currentRecordingBtn = null;
-
-        function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
 
         // ============================================================
         //  PANNEAU CONFIG
@@ -859,7 +628,6 @@
         function clearStoredKey() {
             if (!confirm('Effacer la clé API sauvegardée dans ce navigateur ?')) return;
             localStorage.removeItem('agnes_api_key');
-            localStorage.removeItem('agnes_video_model');
             document.getElementById('apiKeyInput').value = '';
             currentApiKey = '';
             document.getElementById('statusDot').classList.remove('connected');
@@ -889,46 +657,19 @@
             result.className = 'config-test-result testing';
 
             try {
-                // Test chat
-                const chatRes = await fetch(`${BASE_URL}/chat/completions`, {
+                const res = await fetch(`${BASE_URL}/chat/completions`, {
                     method: 'POST',
                     headers: { 'Authorization': `Bearer ${key}`, 'Content-Type': 'application/json' },
                     body: JSON.stringify({ model: 'agnes-2.5-flash', messages: [{ role: 'user', content: 'test' }], max_tokens: 5 })
                 });
-                if (chatRes.status === 401) throw new Error('401 — Clé invalide.');
-                if (chatRes.status === 403) throw new Error('403 — Accès refusé.');
-                if (!chatRes.ok) throw new Error(`Erreur ${chatRes.status}.`);
+                if (res.status === 401) throw new Error('401 — Clé invalide.');
+                if (res.status === 403) throw new Error('403 — Accès refusé.');
+                if (!res.ok) throw new Error(`Erreur ${res.status}.`);
 
-                result.textContent = '✅ Clé valide. Test vidéo...';
-                result.className = 'config-test-result testing';
-
-                // Test vidéo
-                const videoRes = await createVideoTaskWithRetry({
-                    model: FREE_VIDEO_MODEL,
-                    prompt: 'test',
-                    seconds: '5',
-                    mode: 'text',
-                    size: '720P',
-                    aspect_ratio: '16:9'
-                }, 'Test', key);
-
-                if (videoRes.status === 403) throw new Error('403 — Accès vidéo refusé.');
-                if (videoRes.status === 402) throw new Error('402 — Quota épuisé.');
-                if (videoRes.status === 400) throw new Error('400 — Paramètres invalides.');
-                if (!videoRes.ok) {
-                    const e = await videoRes.json().catch(() => ({}));
-                    throw new Error(e.error?.message || `Erreur ${videoRes.status}.`);
-                }
-                const data = await videoRes.json();
-                const videoId = data.video_id || data.id || data.task_id;
-                if (videoId) {
-                    result.innerHTML = `✅ <strong>Succès !</strong> Clé opérationnelle pour le modèle vidéo.<br>
-                        <span style="font-size:0.7rem;color:var(--text2);">Tâche : ${String(videoId).slice(0, 20)}…</span>`;
-                    result.className = 'config-test-result success';
-                    localStorage.setItem('agnes_api_key', key);
-                } else {
-                    throw new Error('Pas d\'identifiant de tâche.');
-                }
+                result.innerHTML = '✅ <strong>Succès !</strong> Clé opérationnelle.';
+                result.className = 'config-test-result success';
+                localStorage.setItem('agnes_api_key', key);
+                document.getElementById('statusDot').classList.add('connected');
             } catch (err) {
                 console.error(err);
                 result.textContent = '❌ ' + err.message;
@@ -990,8 +731,6 @@
         }
         initSpeechRecognition('micText', 'textPrompt');
         initSpeechRecognition('micImage', 'imagePrompt');
-        initSpeechRecognition('micVideo', 'videoPrompt');
-        initSpeechRecognition('micImg2vid', 'img2vidPrompt');
 
         // ============================================================
         //  TRADUCTION
@@ -1031,45 +770,6 @@
 
         function apiHeaders() {
             return { 'Authorization': `Bearer ${getApiKey()}`, 'Content-Type': 'application/json' };
-        }
-
-        // ============================================================
-        //  RETRY 503 / 429 / 5xx
-        // ============================================================
-        async function createVideoTaskWithRetry(body, label = 'Vidéo', keyOverride = null) {
-            let lastError = null;
-            const authKey = keyOverride || getApiKey();
-            for (let attempt = 0; attempt <= MAX_CREATE_RETRIES; attempt++) {
-                try {
-                    const res = await fetch(`${BASE_URL}/videos`, {
-                        method: 'POST',
-                        headers: { 'Authorization': `Bearer ${authKey}`, 'Content-Type': 'application/json' },
-                        body: JSON.stringify(body)
-                    });
-                    if (res.ok) return res;
-                    const retryable = [503, 429, 500, 502, 520, 522, 524];
-                    if (retryable.includes(res.status)) {
-                        const errData = await res.json().catch(() => ({}));
-                        const msg = errData.error?.message || `HTTP ${res.status}`;
-                        lastError = new Error(`${res.status} — ${msg}`);
-                        if (res.status === 503) showToast('⏳ Service saturé (503). Nouvelle tentative…', 'success');
-                        else if (res.status === 429) showToast('⏳ Limite de requêtes (429). Nouvelle tentative…', 'success');
-                        else showToast(`⏳ Erreur ${res.status}. Nouvelle tentative…`, 'success');
-                    } else {
-                        return res;
-                    }
-                } catch (e) {
-                    lastError = e;
-                    showToast('⏳ Erreur réseau. Nouvelle tentative…', 'success');
-                }
-                if (attempt < MAX_CREATE_RETRIES) {
-                    const delay = Math.min(BACKOFF_BASE_MS * Math.pow(2, attempt), BACKOFF_MAX_MS);
-                    const sec = Math.round(delay / 1000);
-                    console.log(`[${label}] Retry ${attempt + 1}/${MAX_CREATE_RETRIES} dans ${sec}s`);
-                    await sleep(delay);
-                }
-            }
-            throw lastError || new Error('Service saturé après plusieurs tentatives.');
         }
 
         // ============================================================
@@ -1147,216 +847,6 @@
         }
 
         // ============================================================
-        //  VIDÉO (Texte → Vidéo)
-        // ============================================================
-        async function generateVideo() {
-            const prompt = document.getElementById('videoPrompt').value.trim();
-            const model = document.getElementById('videoModel').value;
-            const duration = document.getElementById('videoDuration').value;
-            const ratio = document.getElementById('videoRatio').value;
-            const motion = document.getElementById('videoMotion').value;
-            const env = document.getElementById('videoEnv').value;
-            const negative = document.getElementById('videoNeg').value.trim();
-
-            if (!prompt) { showToast('Décrivez la vidéo.', 'error'); return; }
-            if (!getApiKey()) { showToast('Clé API requise.', 'error'); return; }
-            if (!VALID_VIDEO_MODELS.includes(model)) { showToast('Modèle non supporté.', 'error'); return; }
-
-            const d = parseInt(duration, 10);
-            if (d < FLASH_MIN_SECONDS || d > FLASH_MAX_SECONDS) {
-                showToast(`Durée entre ${FLASH_MIN_SECONDS} et ${FLASH_MAX_SECONDS} s.`, 'error');
-                return;
-            }
-
-            let fullPrompt = prompt;
-            if (motion) fullPrompt += `, camera movement: ${motion}`;
-            if (env) fullPrompt += `, environment: ${env}`;
-
-            const btn = document.getElementById('genVideoBtn');
-            btn.disabled = true; btn.textContent = '⏳ Création...';
-            document.getElementById('videoResult').innerHTML = '<div class="placeholder">Création de la tâche vidéo...</div>';
-
-            try {
-                const body = {
-                    model: model,
-                    prompt: fullPrompt,
-                    seconds: String(duration),
-                    mode: 'text',
-                    size: '720P',
-                    aspect_ratio: ratio
-                };
-                if (negative) body.negative_prompt = negative;
-
-                const createRes = await createVideoTaskWithRetry(body, 'Texte→Vidéo');
-                if (!createRes.ok) {
-                    const errData = await createRes.json().catch(() => ({}));
-                    const msg = errData.error?.message || `Erreur ${createRes.status}`;
-                    if (createRes.status === 403) throw new Error(`403 — Accès refusé. ${msg}`);
-                    if (createRes.status === 400) throw new Error(`400 — Paramètres invalides. ${msg}`);
-                    if (createRes.status === 402) throw new Error(`402 — Quota épuisé.`);
-                    throw new Error(msg);
-                }
-                const createData = await createRes.json();
-                const videoId = createData.video_id || createData.id || createData.task_id;
-                if (!videoId) throw new Error('Aucun identifiant de tâche.');
-
-                await pollVideoResult(videoId, model, 'videoResult');
-            } catch (err) {
-                console.error(err);
-                document.getElementById('videoResult').innerHTML = `<div class="placeholder" style="color:var(--danger);">❌ ${escapeHtml(err.message)}</div>`;
-                showToast(err.message, 'error');
-            } finally {
-                btn.disabled = false; btn.textContent = '🎬 Générer la vidéo';
-            }
-        }
-
-        // ============================================================
-        //  IMAGE → VIDÉO
-        // ============================================================
-        let uploadedImageBase64 = null;
-
-        document.getElementById('imageUpload').addEventListener('change', function(e) {
-            const file = e.target.files[0];
-            if (!file) return;
-            const reader = new FileReader();
-            reader.onload = (ev) => {
-                uploadedImageBase64 = ev.target.result;
-                const preview = document.getElementById('uploadPreview');
-                preview.src = uploadedImageBase64;
-                preview.style.display = 'block';
-            };
-            reader.readAsDataURL(file);
-        });
-        const uploadZone = document.getElementById('uploadZone');
-        uploadZone.addEventListener('dragover', (e) => { e.preventDefault(); uploadZone.style.borderColor = 'var(--primary)'; });
-        uploadZone.addEventListener('dragleave', () => { uploadZone.style.borderColor = 'var(--border)'; });
-        uploadZone.addEventListener('drop', (e) => {
-            e.preventDefault(); uploadZone.style.borderColor = 'var(--border)';
-            const file = e.dataTransfer.files[0];
-            if (file && file.type.startsWith('image/')) {
-                const reader = new FileReader();
-                reader.onload = (ev) => {
-                    uploadedImageBase64 = ev.target.result;
-                    const preview = document.getElementById('uploadPreview');
-                    preview.src = uploadedImageBase64;
-                    preview.style.display = 'block';
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-
-        async function generateImg2Vid() {
-            const prompt = document.getElementById('img2vidPrompt').value.trim();
-            const model = document.getElementById('img2vidModel').value;
-            const duration = document.getElementById('img2vidDuration').value;
-            const ratio = document.getElementById('img2vidRatio').value;
-            const motion = document.getElementById('img2vidMotion').value;
-
-            if (!uploadedImageBase64) { showToast('Téléchargez d\'abord une image.', 'error'); return; }
-            if (!getApiKey()) { showToast('Clé API requise.', 'error'); return; }
-            if (!VALID_VIDEO_MODELS.includes(model)) { showToast('Modèle non supporté.', 'error'); return; }
-
-            const d = parseInt(duration, 10);
-            if (d < FLASH_MIN_SECONDS || d > FLASH_MAX_SECONDS) {
-                showToast(`Durée entre ${FLASH_MIN_SECONDS} et ${FLASH_MAX_SECONDS} s.`, 'error');
-                return;
-            }
-
-            let fullPrompt = prompt || 'Animate this image with natural motion';
-            if (motion) fullPrompt += `, camera movement: ${motion}`;
-
-            const btn = document.getElementById('genImg2vidBtn');
-            btn.disabled = true; btn.textContent = '⏳ Création...';
-            document.getElementById('img2vidResult').innerHTML = '<div class="placeholder">Création de la tâche vidéo...</div>';
-
-            try {
-                const body = {
-                    model: model,
-                    prompt: fullPrompt,
-                    seconds: String(duration),
-                    mode: 'image',
-                    size: '720P',
-                    aspect_ratio: ratio,
-                    image: uploadedImageBase64
-                };
-
-                const createRes = await createVideoTaskWithRetry(body, 'Image→Vidéo');
-                if (!createRes.ok) {
-                    const errData = await createRes.json().catch(() => ({}));
-                    const msg = errData.error?.message || `Erreur ${createRes.status}`;
-                    if (createRes.status === 403) throw new Error(`403 — Accès refusé. ${msg}`);
-                    if (createRes.status === 400) throw new Error(`400 — Paramètres invalides. ${msg}`);
-                    if (createRes.status === 402) throw new Error(`402 — Quota épuisé.`);
-                    throw new Error(msg);
-                }
-                const createData = await createRes.json();
-                const videoId = createData.video_id || createData.id || createData.task_id;
-                if (!videoId) throw new Error('Aucun identifiant de tâche.');
-
-                await pollVideoResult(videoId, model, 'img2vidResult');
-            } catch (err) {
-                console.error(err);
-                document.getElementById('img2vidResult').innerHTML = `<div class="placeholder" style="color:var(--danger);">❌ ${escapeHtml(err.message)}</div>`;
-                showToast(err.message, 'error');
-            } finally {
-                btn.disabled = false; btn.textContent = '🎬 Animer l\'image';
-            }
-        }
-
-        // ============================================================
-        //  POLLING VIDÉO
-        // ============================================================
-        async function pollVideoResult(videoId, model, resultContainerId) {
-            const container = document.getElementById(resultContainerId);
-            let attempts = 0;
-
-            container.innerHTML = `
-                <div class="progress-text" id="progText_${resultContainerId}">⏳ Génération en cours...</div>
-                <div class="progress-bar"><div class="fill" id="progFill_${resultContainerId}"></div></div>
-            `;
-
-            const interval = setInterval(async () => {
-                attempts++;
-                if (attempts > MAX_POLL_ATTEMPTS) {
-                    clearInterval(interval);
-                    container.innerHTML = '<div class="placeholder" style="color:var(--warning);">⏰ Délai dépassé. La vidéo est peut-être encore en cours.</div>';
-                    return;
-                }
-                try {
-                    const url = `${RAW_URL}/agnesapi?video_id=${encodeURIComponent(videoId)}&model_name=${encodeURIComponent(model)}`;
-                    const res = await fetch(url, { headers: apiHeaders() });
-                    if (!res.ok) return;
-                    const data = await res.json();
-                    const status = data.status || data.state || 'unknown';
-                    const progress = data.progress || 0;
-
-                    const fill = document.getElementById(`progFill_${resultContainerId}`);
-                    const text = document.getElementById(`progText_${resultContainerId}`);
-                    if (fill) fill.style.width = `${Math.min(progress, 100)}%`;
-                    if (text) text.textContent = `⏳ Statut : ${status} (${progress}%)`;
-
-                    if (status === 'completed' || status === 'succeeded' || status === 'success') {
-                        clearInterval(interval);
-                        const videoUrl = data.metadata?.url || data.url || data.output?.url;
-                        if (videoUrl) {
-                            container.innerHTML = `
-                                <video controls src="${videoUrl}" style="width:100%;border-radius:12px;"></video>
-                                <div class="result-actions"><a href="${videoUrl}" download target="_blank">⬇️ Télécharger la vidéo</a></div>
-                            `;
-                            showToast('✅ Vidéo générée !', 'success');
-                        } else {
-                            container.innerHTML = '<div class="placeholder" style="color:var(--warning);">Vidéo terminée mais URL introuvable.</div>';
-                        }
-                    } else if (status === 'failed' || status === 'error') {
-                        clearInterval(interval);
-                        container.innerHTML = `<div class="placeholder" style="color:var(--danger);">❌ Échec : ${data.error || 'Erreur inconnue'}</div>`;
-                        showToast('La génération a échoué.', 'error');
-                    }
-                } catch (err) { console.error('Poll error:', err); }
-            }, POLL_INTERVAL_MS);
-        }
-
-        // ============================================================
         //  UTILITAIRES
         // ============================================================
         function escapeHtml(str) {
@@ -1388,7 +878,7 @@
                 currentApiKey = savedKey;
                 statusDot.classList.add('connected');
             }
-            console.log('🧠 Ankili IA — Interface prête (bannière Comores)');
+            console.log('🧠 Ankili IA — Interface prête (texte + image)');
         })();
     </script>
 </body>
