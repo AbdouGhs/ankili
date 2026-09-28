@@ -12,421 +12,169 @@
             --text: #e8eaed; --text2: #9aa0b0; --danger: #e74c3c; --success: #00b894;
             --warning: #fdcb6e; --radius: 12px; --radius-sm: 8px;
             --shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            --km-green: #3D8E33; --km-green-light: #6fce5f;
         }
         body { background: var(--bg); color: var(--text); min-height: 100vh; display: flex; flex-direction: column; line-height: 1.5; }
-
-        /* ---------- BANNIÈRE COMORES ---------- */
-        .hero {
-            position: relative;
-            height: 280px;
-            background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80');
-            background-size: cover;
-            background-position: center 60%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-        .hero::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(180deg, rgba(15, 17, 23, 0.35) 0%, rgba(15, 17, 23, 0.75) 60%, var(--bg) 100%);
-        }
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            text-align: center;
-            color: #fff;
-            padding: 1rem;
-        }
-        .hero-flag {
-            display: inline-block;
-            width: 78px;
-            height: 52px;
-            border-radius: 6px;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45), 0 0 0 2px rgba(255, 255, 255, 0.15);
-            overflow: hidden;
-            margin-bottom: 0.9rem;
-            vertical-align: middle;
-        }
-        .hero-flag img {
-            display: block;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        .hero h1 {
-            font-size: 2.2rem;
-            font-weight: 300;
-            letter-spacing: 0.05em;
-            text-shadow: 0 2px 12px rgba(0, 0, 0, 0.7);
-        }
+        .hero { position: relative; height: 280px; background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80'); background-size: cover; background-position: center 60%; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        .hero::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(15, 17, 23, 0.35) 0%, rgba(15, 17, 23, 0.75) 60%, var(--bg) 100%); }
+        .hero-content { position: relative; z-index: 2; text-align: center; color: #fff; padding: 1rem; }
+        .hero-flag { display: inline-block; width: 78px; height: 52px; border-radius: 6px; box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45), 0 0 0 2px rgba(255, 255, 255, 0.15); overflow: hidden; margin-bottom: 0.9rem; vertical-align: middle; }
+        .hero-flag img { display: block; width: 100%; height: 100%; object-fit: cover; }
+        .hero h1 { font-size: 2.2rem; font-weight: 300; letter-spacing: 0.05em; text-shadow: 0 2px 12px rgba(0, 0, 0, 0.7); }
         .hero h1 strong { font-weight: 700; }
-        .hero p {
-            font-size: 0.9rem;
-            color: rgba(255, 255, 255, 0.85);
-            font-style: italic;
-            margin-top: 0.4rem;
-            text-shadow: 0 1px 8px rgba(0, 0, 0, 0.6);
-        }
-
-        /* ---------- TOP BAR ---------- */
-        .top-bar {
-            max-width: 1100px;
-            margin: -2rem auto 0;
-            padding: 0 1.5rem;
-            position: relative;
-            z-index: 3;
-            width: 100%;
-        }
-        .top-bar-inner {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 0.9rem 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            box-shadow: var(--shadow);
-            flex-wrap: wrap;
-        }
-        .top-bar-inner .status-dot {
-            width: 10px; height: 10px; border-radius: 50%;
-            background: var(--danger); flex-shrink: 0;
-        }
+        .hero p { font-size: 0.9rem; color: rgba(255, 255, 255, 0.85); font-style: italic; margin-top: 0.4rem; text-shadow: 0 1px 8px rgba(0, 0, 0, 0.6); }
+        .top-bar { max-width: 1100px; margin: -2rem auto 0; padding: 0 1.5rem; position: relative; z-index: 3; width: 100%; }
+        .top-bar-inner { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 0.9rem 1rem; display: flex; align-items: center; gap: 0.75rem; box-shadow: var(--shadow); flex-wrap: wrap; }
+        .top-bar-inner .status-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--danger); flex-shrink: 0; }
         .top-bar-inner .status-dot.connected { background: var(--success); }
-        .top-bar-inner input {
-            flex: 1;
-            min-width: 180px;
-            padding: 0.55rem 0.85rem;
-            background: var(--surface2);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-sm);
-            color: var(--text);
-            font-size: 0.88rem;
-            outline: none;
-            font-family: inherit;
-        }
+        .top-bar-inner input { flex: 1; min-width: 180px; padding: 0.55rem 0.85rem; background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius-sm); color: var(--text); font-size: 0.88rem; outline: none; font-family: inherit; }
         .top-bar-inner input:focus { border-color: var(--primary); }
-        .top-bar-btn {
-            padding: 0.55rem 1rem;
-            background: var(--surface2);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-sm);
-            color: var(--text);
-            font-size: 0.85rem;
-            cursor: pointer;
-            transition: all 0.2s;
-            white-space: nowrap;
-        }
+        .top-bar-btn { padding: 0.55rem 1rem; background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius-sm); color: var(--text); font-size: 0.85rem; cursor: pointer; transition: all 0.2s; white-space: nowrap; }
         .top-bar-btn:hover { border-color: var(--primary); }
-
-        /* ---------- Config panel ---------- */
-        .config-panel {
-            display: none;
-            max-width: 1100px;
-            margin: 0.75rem auto 0;
-            padding: 0 1.5rem;
-            width: 100%;
-        }
+        .config-panel { display: none; max-width: 1100px; margin: 0.75rem auto 0; padding: 0 1.5rem; width: 100%; }
         .config-panel.visible { display: block; }
-        .config-inner {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 1.25rem;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 1rem;
-        }
+        .config-inner { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; }
         .config-field { display: flex; flex-direction: column; gap: 0.4rem; }
-        .config-field label {
-            font-size: 0.75rem; font-weight: 600; color: var(--text2);
-            text-transform: uppercase; letter-spacing: 0.5px;
-        }
+        .config-field label { font-size: 0.75rem; font-weight: 600; color: var(--text2); text-transform: uppercase; letter-spacing: 0.5px; }
         .config-hint { font-size: 0.72rem; color: var(--text2); font-style: italic; }
-
-        .config-test-btn {
-            padding: 0.55rem 1rem;
-            background: var(--surface2);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-sm);
-            color: var(--text);
-            font-size: 0.85rem;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
+        .config-test-btn { padding: 0.55rem 1rem; background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius-sm); color: var(--text); font-size: 0.85rem; cursor: pointer; transition: all 0.2s; }
         .config-test-btn:hover:not(:disabled) { border-color: var(--primary); }
         .config-test-btn:disabled { opacity: 0.5; cursor: not-allowed; }
         .config-test-result { font-size: 0.75rem; min-height: 1.2em; margin-top: 0.2rem; line-height: 1.4; }
         .config-test-result.success { color: var(--success); }
         .config-test-result.error { color: var(--danger); }
         .config-test-result.testing { color: var(--warning); }
-
-        /* ---------- Tabs ---------- */
-        .tabs {
-            display: flex;
-            gap: 0.25rem;
-            padding: 1.25rem 1.5rem 0;
-            max-width: 1100px;
-            margin: 0 auto;
-            width: 100%;
-            overflow-x: auto;
-        }
-        .tabs button {
-            padding: 0.6rem 1.2rem;
-            border: 1px solid var(--border);
-            background: var(--surface);
-            color: var(--text2);
-            font-size: 0.9rem;
-            font-weight: 500;
-            border-radius: var(--radius-sm);
-            cursor: pointer;
-            white-space: nowrap;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
-        }
+        .tabs { display: flex; gap: 0.25rem; padding: 1.25rem 1.5rem 0; max-width: 1100px; margin: 0 auto; width: 100%; overflow-x: auto; }
+        .tabs button { padding: 0.6rem 1.2rem; border: 1px solid var(--border); background: var(--surface); color: var(--text2); font-size: 0.9rem; font-weight: 500; border-radius: var(--radius-sm); cursor: pointer; white-space: nowrap; transition: all 0.2s; display: flex; align-items: center; gap: 0.4rem; }
         .tabs button:hover { background: var(--surface2); color: var(--text); }
         .tabs button.active { background: var(--primary); color: #fff; border-color: var(--primary); }
-
-        /* ---------- Main ---------- */
         main { flex: 1; padding: 1.25rem 1.5rem 2rem; max-width: 1100px; margin: 0 auto; width: 100%; }
         .panel { display: none; animation: fadeIn 0.3s ease; }
         .panel.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+        .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; margin-bottom: 1.25rem; box-shadow: var(--shadow); }
+        .card h2 { font-size: 1.1rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
+        .card h2 .badge { font-size: 0.7rem; background: var(--surface2); padding: 0.15rem 0.5rem; border-radius: 20px; color: var(--text2); font-weight: 400; }
 
-        .card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 1.5rem;
-            margin-bottom: 1.25rem;
-            box-shadow: var(--shadow);
-        }
-        .card h2 {
-            font-size: 1.1rem;
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        .card h2 .badge {
-            font-size: 0.7rem;
-            background: var(--surface2);
-            padding: 0.15rem 0.5rem;
-            border-radius: 20px;
-            color: var(--text2);
-            font-weight: 400;
-        }
+        /* --- Chat --- */
+        .chat-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; margin-bottom: 0.9rem; flex-wrap: wrap; }
+        .chat-toolbar-left { display: flex; align-items: center; gap: 0.5rem; font-size: 0.8rem; color: var(--text2); }
+        .chat-toolbar-btn { padding: 0.45rem 0.85rem; background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius-sm); color: var(--text); font-size: 0.8rem; cursor: pointer; transition: all 0.2s; display: inline-flex; align-items: center; gap: 0.35rem; }
+        .chat-toolbar-btn:hover { border-color: var(--danger); color: var(--danger); }
+        .chat-messages { display: flex; flex-direction: column; gap: 0.9rem; max-height: 520px; overflow-y: auto; padding: 0.5rem 0.25rem 0.5rem 0; margin-bottom: 1rem; scroll-behavior: smooth; }
+        .chat-messages::-webkit-scrollbar { width: 6px; }
+        .chat-messages::-webkit-scrollbar-track { background: transparent; }
+        .chat-messages::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+        .chat-messages::-webkit-scrollbar-thumb:hover { background: var(--primary); }
+        .chat-empty { text-align: center; color: var(--text2); font-size: 0.88rem; padding: 2.5rem 1rem; border: 1px dashed var(--border); border-radius: var(--radius); line-height: 1.7; }
+        .chat-empty .examples { display: flex; flex-direction: column; gap: 0.4rem; margin-top: 0.8rem; font-size: 0.82rem; font-style: italic; }
+        .chat-empty .example { background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 0.5rem 0.75rem; cursor: pointer; transition: all 0.2s; color: var(--text); }
+        .chat-empty .example:hover { border-color: var(--primary); background: rgba(108, 92, 231, 0.08); }
+        .msg { display: flex; gap: 0.6rem; animation: msgIn 0.25s ease; max-width: 100%; }
+        @keyframes msgIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+        .msg-avatar { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; flex-shrink: 0; font-weight: 600; }
+        .msg.user .msg-avatar { background: linear-gradient(135deg, var(--primary), #a29bfe); color: #fff; }
+        .msg.assistant .msg-avatar { background: linear-gradient(135deg, var(--km-green), var(--km-green-light)); color: #fff; }
+        .msg.error .msg-avatar { background: var(--danger); color: #fff; }
+        .msg-body { flex: 1; min-width: 0; }
+        .msg-header { font-size: 0.72rem; color: var(--text2); margin-bottom: 0.2rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; display: flex; align-items: center; gap: 0.4rem; }
+        .msg-bubble { background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 0.7rem 0.95rem; font-size: 0.92rem; line-height: 1.65; white-space: pre-wrap; word-break: break-word; }
+        .msg.user .msg-bubble { background: rgba(108, 92, 231, 0.12); border-color: rgba(108, 92, 231, 0.3); }
+        .msg.assistant .msg-bubble { background: rgba(61, 142, 51, 0.08); border-color: rgba(61, 142, 51, 0.25); }
+        .msg.error .msg-bubble { background: rgba(231, 76, 60, 0.1); border-color: rgba(231, 76, 60, 0.35); color: var(--danger); }
+        .msg-actions { display: flex; gap: 0.35rem; margin-top: 0.4rem; }
+        .msg-actions button { padding: 0.25rem 0.6rem; background: transparent; border: 1px solid var(--border); border-radius: 6px; color: var(--text2); font-size: 0.7rem; cursor: pointer; transition: all 0.2s; }
+        .msg-actions button:hover { border-color: var(--primary); color: var(--text); }
+        .msg-typing .msg-bubble { display: flex; align-items: center; gap: 0.3rem; color: var(--text2); font-style: italic; }
+        .typing-dots { display: inline-flex; gap: 0.2rem; }
+        .typing-dots span { width: 6px; height: 6px; border-radius: 50%; background: var(--km-green-light); animation: typing 1.2s infinite; }
+        .typing-dots span:nth-child(2) { animation-delay: 0.15s; }
+        .typing-dots span:nth-child(3) { animation-delay: 0.3s; }
+        @keyframes typing { 0%, 60%, 100% { opacity: 0.3; transform: translateY(0); } 30% { opacity: 1; transform: translateY(-3px); } }
 
-        .prompt-row { display: flex; gap: 0.6rem; align-items: flex-start; margin-bottom: 1rem; }
-        .prompt-row textarea {
-            flex: 1;
-            min-height: 80px;
-            padding: 0.75rem 1rem;
-            background: var(--surface2);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-sm);
-            color: var(--text);
-            font-size: 0.95rem;
-            resize: vertical;
-            outline: none;
-            font-family: inherit;
-        }
+        .prompt-row { display: flex; gap: 0.6rem; align-items: flex-end; margin-bottom: 0.5rem; }
+        .prompt-row textarea { flex: 1; min-height: 48px; max-height: 200px; padding: 0.75rem 1rem; background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius-sm); color: var(--text); font-size: 0.95rem; resize: none; outline: none; font-family: inherit; line-height: 1.5; }
         .prompt-row textarea:focus { border-color: var(--primary); }
-        .prompt-actions { display: flex; flex-direction: column; gap: 0.4rem; }
-        .icon-btn {
-            width: 42px; height: 42px;
-            border: 1px solid var(--border);
-            background: var(--surface2);
-            color: var(--text);
-            border-radius: var(--radius-sm);
-            cursor: pointer;
-            font-size: 1.1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s;
-        }
+        .prompt-actions { display: flex; gap: 0.4rem; }
+        .icon-btn { width: 48px; height: 48px; border: 1px solid var(--border); background: var(--surface2); color: var(--text); border-radius: var(--radius-sm); cursor: pointer; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; transition: all 0.2s; flex-shrink: 0; }
         .icon-btn:hover { background: var(--border); border-color: var(--primary); }
-        .icon-btn.recording {
-            background: var(--danger);
-            border-color: var(--danger);
-            color: #fff;
-            animation: pulse 1s infinite;
-        }
-        @keyframes pulse {
-            0%, 100% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.6); }
-            50% { box-shadow: 0 0 0 8px rgba(231, 76, 60, 0); }
-        }
+        .icon-btn.recording { background: var(--danger); border-color: var(--danger); color: #fff; animation: pulse 1s infinite; }
+        @keyframes pulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.6); } 50% { box-shadow: 0 0 0 8px rgba(231, 76, 60, 0); } }
+        .send-btn { width: 48px; height: 48px; border: none; background: linear-gradient(135deg, var(--km-green), var(--km-green-light)); color: #fff; border-radius: var(--radius-sm); cursor: pointer; font-size: 1.2rem; display: flex; align-items: center; justify-content: center; transition: all 0.2s; box-shadow: 0 4px 12px rgba(61, 142, 51, 0.3); flex-shrink: 0; }
+        .send-btn:hover:not(:disabled) { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(61, 142, 51, 0.45); }
+        .send-btn:disabled { opacity: 0.5; cursor: not-allowed; box-shadow: none; }
+        .input-hint { font-size: 0.7rem; color: var(--text2); text-align: right; margin-bottom: 0.75rem; font-style: italic; }
 
-        .options-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            gap: 0.9rem;
-            margin-bottom: 1rem;
-        }
+        /* --- Options --- */
+        .options-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 0.9rem; margin-bottom: 1rem; }
         .option-group { display: flex; flex-direction: column; gap: 0.3rem; }
-        .option-group label {
-            font-size: 0.78rem;
-            font-weight: 600;
-            color: var(--text2);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        .option-group select,
-        .option-group input[type="number"],
-        .option-group input[type="text"] {
-            padding: 0.55rem 0.75rem;
-            background: var(--surface2);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-sm);
-            color: var(--text);
-            font-size: 0.88rem;
-            outline: none;
-            font-family: inherit;
-        }
-        .option-group select:focus,
-        .option-group input:focus { border-color: var(--primary); }
+        .option-group label { font-size: 0.78rem; font-weight: 600; color: var(--text2); text-transform: uppercase; letter-spacing: 0.5px; }
+        .option-group select, .option-group input[type="number"], .option-group input[type="text"] { padding: 0.55rem 0.75rem; background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius-sm); color: var(--text); font-size: 0.88rem; outline: none; font-family: inherit; }
+        .option-group select:focus, .option-group input:focus { border-color: var(--primary); }
         .option-group select option { background: var(--surface2); color: var(--text); }
 
-        .info-banner {
-            background: rgba(0, 206, 201, 0.08);
-            border: 1px solid rgba(0, 206, 201, 0.3);
-            border-radius: var(--radius-sm);
-            padding: 0.6rem 0.9rem;
-            font-size: 0.78rem;
-            color: var(--accent);
-            margin-bottom: 1rem;
-            line-height: 1.4;
-        }
+        /* --- Préréglages --- */
+        .presets-row { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem; }
+        .preset-chip { padding: 0.5rem 0.9rem; background: var(--surface2); border: 1px solid var(--border); border-radius: 20px; color: var(--text); font-size: 0.8rem; cursor: pointer; transition: all 0.2s; white-space: nowrap; }
+        .preset-chip:hover { border-color: var(--km-green); background: rgba(61, 142, 51, 0.1); }
+        .preset-chip.active { background: var(--km-green); color: #fff; border-color: var(--km-green); }
 
-        .gen-btn {
-            width: 100%;
-            padding: 0.85rem 1.5rem;
-            background: linear-gradient(135deg, var(--primary), #a29bfe);
-            border: none;
-            border-radius: var(--radius-sm);
-            color: #fff;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.25s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            box-shadow: 0 4px 15px rgba(108, 92, 231, 0.3);
-        }
-        .gen-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(108, 92, 231, 0.45); }
+        .gen-btn { width: 100%; padding: 0.85rem 1.5rem; background: linear-gradient(135deg, var(--km-green), var(--km-green-light)); border: none; border-radius: var(--radius-sm); color: #fff; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.25s; display: flex; align-items: center; justify-content: center; gap: 0.5rem; box-shadow: 0 4px 15px rgba(61, 142, 51, 0.35); }
+        .gen-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(61, 142, 51, 0.5); }
         .gen-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none; }
-
         .result-area { margin-top: 1.25rem; }
-        .result-area .placeholder {
-            color: var(--text2);
-            font-size: 0.9rem;
-            text-align: center;
-            padding: 2rem 1rem;
-            border: 1px dashed var(--border);
-            border-radius: var(--radius);
-        }
-        .result-area img {
-            max-width: 100%;
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
-            display: block;
-            margin: 0 auto;
-        }
-        .result-area .text-output {
-            background: var(--surface2);
-            padding: 1rem 1.25rem;
-            border-radius: var(--radius-sm);
-            font-size: 0.95rem;
-            line-height: 1.7;
-            white-space: pre-wrap;
-            word-break: break-word;
-            border: 1px solid var(--border);
-        }
-
-        .result-actions {
-            display: flex;
-            gap: 0.5rem;
-            margin-top: 0.75rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-        .result-actions a, .result-actions button {
-            padding: 0.5rem 1rem;
-            background: var(--surface2);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-sm);
-            color: var(--text);
-            text-decoration: none;
-            font-size: 0.85rem;
-            cursor: pointer;
-            transition: all 0.2s;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.35rem;
-        }
-        .result-actions a:hover, .result-actions button:hover {
-            background: var(--border);
-            border-color: var(--primary);
-        }
-
-        .translate-row {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-bottom: 0.75rem;
-            flex-wrap: wrap;
-        }
+        .result-area .placeholder { color: var(--text2); font-size: 0.9rem; text-align: center; padding: 2rem 1rem; border: 1px dashed var(--border); border-radius: var(--radius); }
+        .result-area img { max-width: 100%; border-radius: var(--radius); box-shadow: var(--shadow); display: block; margin: 0 auto; }
+        .result-actions { display: flex; gap: 0.5rem; margin-top: 0.75rem; justify-content: center; flex-wrap: wrap; }
+        .result-actions a, .result-actions button { padding: 0.5rem 1rem; background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius-sm); color: var(--text); text-decoration: none; font-size: 0.85rem; cursor: pointer; transition: all 0.2s; display: inline-flex; align-items: center; gap: 0.35rem; }
+        .result-actions a:hover, .result-actions button:hover { background: var(--border); border-color: var(--primary); }
+        .translate-row { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem; flex-wrap: wrap; }
         .translate-row label { font-size: 0.8rem; color: var(--text2); }
-        .translate-row select {
-            padding: 0.4rem 0.6rem;
-            background: var(--surface2);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-sm);
-            color: var(--text);
-            font-size: 0.82rem;
-            outline: none;
-        }
-        .translate-row button {
-            padding: 0.4rem 0.8rem;
-            background: var(--surface2);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-sm);
-            color: var(--text);
-            font-size: 0.82rem;
-            cursor: pointer;
-        }
+        .translate-row select { padding: 0.4rem 0.6rem; background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius-sm); color: var(--text); font-size: 0.82rem; outline: none; }
+        .translate-row button { padding: 0.4rem 0.8rem; background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius-sm); color: var(--text); font-size: 0.82rem; cursor: pointer; }
         .translate-row button:hover { border-color: var(--primary); }
 
-        .toast {
-            position: fixed;
-            bottom: 1.5rem;
-            right: 1.5rem;
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-sm);
-            padding: 0.85rem 1.25rem;
-            box-shadow: var(--shadow);
-            font-size: 0.88rem;
-            z-index: 1000;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.3s;
-            max-width: 350px;
-            pointer-events: none;
-        }
+        /* --- Upload --- */
+        .upload-zone { border: 2px dashed var(--border); border-radius: var(--radius); padding: 1.5rem; text-align: center; cursor: pointer; transition: all 0.2s; margin-bottom: 1rem; position: relative; overflow: hidden; }
+        .upload-zone:hover { border-color: var(--km-green); background: rgba(61, 142, 51, 0.05); }
+        .upload-zone input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+        .upload-zone p { color: var(--text2); font-size: 0.9rem; }
+        .upload-zone .preview { max-width: 220px; max-height: 160px; border-radius: var(--radius-sm); margin-top: 0.5rem; object-fit: cover; }
+        .upload-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem; justify-content: center; }
+
+        /* --- Vidéo + Galerie --- */
+        .video-result video { max-width: 100%; border-radius: var(--radius); box-shadow: var(--shadow); display: block; margin: 0 auto; background: #000; }
+        .progress-bar { width: 100%; height: 6px; background: var(--surface2); border-radius: 3px; margin: 1rem 0; overflow: hidden; }
+        .progress-bar .fill { height: 100%; background: linear-gradient(90deg, var(--km-green), var(--km-green-light)); border-radius: 3px; transition: width 0.5s ease; width: 0%; }
+        .progress-text { font-size: 0.82rem; color: var(--text2); text-align: center; margin-bottom: 0.5rem; }
+        .retry-btn { background: var(--km-green); color: #fff; border: none; padding: 0.6rem 1.5rem; font-weight: 600; cursor: pointer; border-radius: var(--radius-sm); font-size: 0.9rem; transition: all 0.2s; }
+        .retry-btn:hover { background: var(--km-green-light); }
+
+        .gallery-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.5rem; }
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 0.9rem; }
+        .gallery-item { background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius-sm); overflow: hidden; transition: all 0.2s; }
+        .gallery-item:hover { border-color: var(--km-green); }
+        .gallery-item video { width: 100%; display: block; aspect-ratio: 16/9; object-fit: cover; background: #000; cursor: pointer; }
+        .gallery-meta { padding: 0.6rem 0.7rem; font-size: 0.72rem; color: var(--text2); line-height: 1.4; }
+        .gallery-meta .title { color: var(--text); font-weight: 600; font-size: 0.78rem; margin-bottom: 0.2rem; display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .gallery-meta .date { font-size: 0.68rem; color: var(--text2); }
+        .gallery-item-actions { display: flex; gap: 0.3rem; padding: 0 0.7rem 0.6rem; }
+        .gallery-item-actions button, .gallery-item-actions a { flex: 1; padding: 0.35rem 0.5rem; background: var(--surface); border: 1px solid var(--border); border-radius: 6px; color: var(--text); font-size: 0.7rem; cursor: pointer; transition: all 0.2s; text-decoration: none; text-align: center; display: inline-flex; align-items: center; justify-content: center; gap: 0.25rem; }
+        .gallery-item-actions button:hover, .gallery-item-actions a:hover { border-color: var(--primary); }
+        .gallery-empty { text-align: center; color: var(--text2); font-size: 0.85rem; font-style: italic; padding: 1.5rem 1rem; }
+
+        /* --- Aperçu prompt --- */
+        .prompt-preview-toggle { display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.45rem 0.85rem; background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius-sm); color: var(--text2); font-size: 0.78rem; cursor: pointer; transition: all 0.2s; margin-bottom: 0.75rem; }
+        .prompt-preview-toggle:hover { border-color: var(--primary); color: var(--text); }
+        .prompt-preview { display: none; background: #0a0a0a; border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 0.85rem; font-family: ui-monospace, monospace; font-size: 0.72rem; color: var(--text2); max-height: 200px; overflow-y: auto; margin-bottom: 1rem; white-space: pre-wrap; word-break: break-word; }
+        .prompt-preview.visible { display: block; }
+        .prompt-preview strong { color: var(--km-green-light); }
+
+        .toast { position: fixed; bottom: 1.5rem; right: 1.5rem; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 0.85rem 1.25rem; box-shadow: var(--shadow); font-size: 0.88rem; z-index: 1000; opacity: 0; transform: translateY(20px); transition: all 0.3s; max-width: 350px; pointer-events: none; }
         .toast.show { opacity: 1; transform: translateY(0); }
         .toast.error { border-color: var(--danger); }
         .toast.success { border-color: var(--success); }
 
-        /* ---------- Responsive ---------- */
         @media (max-width: 700px) {
             .hero { height: 220px; }
             .hero h1 { font-size: 1.6rem; }
@@ -439,32 +187,25 @@
             main { padding: 1rem; }
             .card { padding: 1rem; }
             .options-grid { grid-template-columns: 1fr 1fr; gap: 0.6rem; }
-            .prompt-row { flex-direction: column; }
-            .prompt-actions { flex-direction: row; width: 100%; }
-            .prompt-actions .icon-btn { flex: 1; }
+            .chat-messages { max-height: 400px; }
+            .msg-bubble { font-size: 0.88rem; }
+            .gallery-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
         }
-        @media (max-width: 400px) {
-            .options-grid { grid-template-columns: 1fr; }
-        }
+        @media (max-width: 400px) { .options-grid { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
 
-    <!-- ========== BANNIÈRE COMORES ========== -->
     <div class="hero">
         <div class="hero-content">
             <div class="hero-flag" aria-label="Drapeau des Comores">
-                <img src="https://flagcdn.com/w320/km.png"
-                     srcset="https://flagcdn.com/w320/km.png 320w, https://flagcdn.com/w640/km.png 640w"
-                     sizes="78px"
-                     alt="Drapeau des Comores">
+                <img src="https://flagcdn.com/w320/km.png" srcset="https://flagcdn.com/w320/km.png 320w, https://flagcdn.com/w640/km.png 640w" sizes="78px" alt="Drapeau des Comores">
             </div>
             <h1><strong>Ankili</strong> IA</h1>
-            <p>Génération de texte et d'images — depuis les Comores</p>
+            <p>Génération de texte, d'images et de vidéos — enrichie sur les Comores</p>
         </div>
     </div>
 
-    <!-- ========== BARRE CLÉ API ========== -->
     <div class="top-bar">
         <div class="top-bar-inner">
             <div class="status-dot" id="statusDot"></div>
@@ -473,7 +214,6 @@
         </div>
     </div>
 
-    <!-- ========== PANNEAU CONFIG ========== -->
     <div class="config-panel" id="configPanel">
         <div class="config-inner">
             <div class="config-field">
@@ -486,35 +226,37 @@
                 <button class="config-test-btn" onclick="clearStoredKey()">🗑️ Effacer la clé sauvegardée</button>
                 <div class="config-hint">La clé est conservée localement dans ce navigateur.</div>
             </div>
+            <div class="config-field">
+                <label>Base de connaissances</label>
+                <div class="config-hint">🌴 La base <strong>Comores</strong> est injectée automatiquement dans chaque requête.</div>
+            </div>
         </div>
     </div>
 
-    <!-- ========== TABS ========== -->
     <div class="tabs" id="tabs">
         <button class="active" data-panel="panel-text">💬 Texte</button>
         <button data-panel="panel-image">🖼️ Image</button>
+        <button data-panel="panel-video">🎬 Vidéo</button>
     </div>
 
-    <!-- ========== MAIN ========== -->
     <main>
-
         <!-- TEXTE -->
         <div class="panel active" id="panel-text">
             <div class="card">
                 <h2>💬 Génération de texte <span class="badge">Chat</span></h2>
-                <div class="translate-row">
-                    <label>Langue :</label>
-                    <select id="textLangSelect">
-                        <option value="fr">Français</option><option value="en">English</option><option value="es">Español</option>
-                        <option value="de">Deutsch</option><option value="it">Italiano</option><option value="pt">Português</option>
-                        <option value="ar">العربية</option><option value="zh">中文</option><option value="ja">日本語</option><option value="ru">Русский</option>
-                    </select>
-                    <button onclick="translatePrompt('textPrompt', 'textLangSelect')">🌐 Traduire</button>
+                <div class="chat-toolbar">
+                    <div class="chat-toolbar-left"><span>💡 Conversation sauvegardée automatiquement.</span></div>
+                    <button class="chat-toolbar-btn" onclick="clearConversation()">🗑️ Nouvelle conversation</button>
                 </div>
+                <div class="chat-messages" id="chatMessages"></div>
                 <div class="prompt-row">
-                    <textarea id="textPrompt" placeholder="Posez votre question ou donnez une instruction..."></textarea>
-                    <div class="prompt-actions"><button class="icon-btn" id="micText" title="Dicter">🎤</button></div>
+                    <textarea id="textPrompt" rows="1" placeholder="Écrivez votre message... (Entrée pour envoyer, Maj+Entrée pour un saut de ligne)"></textarea>
+                    <div class="prompt-actions">
+                        <button class="icon-btn" id="micText" title="Dicter">🎤</button>
+                        <button class="send-btn" id="sendBtn" title="Envoyer" onclick="generateText()">➤</button>
+                    </div>
                 </div>
+                <div class="input-hint">Entrée pour envoyer · Maj+Entrée pour saut de ligne</div>
                 <div class="options-grid">
                     <div class="option-group">
                         <label>Modèle</label>
@@ -525,8 +267,6 @@
                     </div>
                     <div class="option-group"><label>Température</label><input type="number" id="textTemp" value="0.7" min="0" max="2" step="0.1"></div>
                 </div>
-                <button class="gen-btn" id="genTextBtn" onclick="generateText()">✨ Générer le texte</button>
-                <div class="result-area" id="textResult"><div class="placeholder">Le résultat apparaîtra ici.</div></div>
             </div>
         </div>
 
@@ -542,9 +282,11 @@
                     </select>
                     <button onclick="translatePrompt('imagePrompt', 'imageLangSelect')">🌐 Traduire</button>
                 </div>
-                <div class="prompt-row">
-                    <textarea id="imagePrompt" placeholder="Décrivez l'image que vous souhaitez générer..."></textarea>
-                    <div class="prompt-actions"><button class="icon-btn" id="micImage" title="Dicter">🎤</button></div>
+                <div class="prompt-row" style="align-items: flex-start;">
+                    <textarea id="imagePrompt" style="min-height: 80px; resize: vertical;" placeholder="Décrivez l'image que vous souhaitez générer..."></textarea>
+                    <div class="prompt-actions" style="flex-direction: column;">
+                        <button class="icon-btn" id="micImage" title="Dicter">🎤</button>
+                    </div>
                 </div>
                 <div class="options-grid">
                     <div class="option-group">
@@ -554,53 +296,151 @@
                             <option value="agnes-image-2.0-flash">Agnes Image 2.0 Flash</option>
                         </select>
                     </div>
+                    <div class="option-group"><label>Taille</label><select id="imageSize"><option value="1K">1K</option><option value="2K" selected>2K</option></select></div>
+                    <div class="option-group"><label>Ratio</label><select id="imageRatio">
+                        <option value="1:1">1:1 (Carré)</option><option value="16:9">16:9 (Paysage)</option>
+                        <option value="9:16">9:16 (Portrait)</option><option value="4:3">4:3</option><option value="3:4">3:4</option>
+                    </select></div>
+                    <div class="option-group"><label>Style</label><select id="imageStyle">
+                        <option value="">Automatique</option><option value="photorealistic">Photorealistic</option>
+                        <option value="digital art">Digital Art</option><option value="anime">Anime</option>
+                        <option value="3d render">3D Render</option><option value="oil painting">Peinture à l'huile</option>
+                        <option value="watercolor">Aquarelle</option><option value="cyberpunk">Cyberpunk</option>
+                    </select></div>
+                    <div class="option-group"><label>Environnement</label><select id="imageEnv">
+                        <option value="">Automatique</option><option value="studio lighting">Studio</option>
+                        <option value="natural light">Lumière naturelle</option><option value="sunset">Coucher de soleil</option>
+                        <option value="night city">Ville de nuit</option><option value="forest">Forêt</option>
+                        <option value="ocean">Océan</option><option value="space">Espace</option>
+                    </select></div>
+                    <div class="option-group"><label>Format</label><select id="imageFormat"><option value="url">URL</option><option value="b64_json">Base64</option></select></div>
+                </div>
+                <button class="gen-btn" id="genImageBtn" onclick="generateImage()">✨ Générer l'image</button>
+                <div class="result-area" id="imageResult"><div class="placeholder">L'image générée apparaîtra ici.</div></div>
+            </div>
+        </div>
+
+        <!-- VIDÉO -->
+        <div class="panel" id="panel-video">
+            <div class="card">
+                <h2>🎬 Génération de vidéo <span class="badge">Image → Vidéo</span></h2>
+                <div style="background: rgba(61, 142, 51, 0.08); border: 1px solid rgba(61, 142, 51, 0.3); border-radius: var(--radius-sm); padding: 0.6rem 0.9rem; font-size: 0.78rem; color: var(--km-green-light); margin-bottom: 1rem; line-height: 1.4;">
+                    ✅ Modèle <em>agnes-video-v2.0</em> — <code>num_frames</code> calculé automatiquement (règle 8n+1).
+                </div>
+
+                <div class="upload-zone" id="uploadZone">
+                    <input type="file" id="videoImageUpload" accept="image/*">
+                    <p>📁 Cliquez ou déposez une image de départ ici</p>
+                    <div style="font-size:0.72rem; color:var(--text2); margin-top:0.3rem;">PNG, JPG, WEBP — max 10 MB</div>
+                    <img class="preview" id="videoUploadPreview" style="display:none;" alt="Aperçu">
+                </div>
+                <div class="upload-actions" id="uploadActions" style="display:none;">
+                    <button class="chat-toolbar-btn" onclick="clearVideoImage()">🗑️ Retirer l'image</button>
+                    <button class="chat-toolbar-btn" onclick="reuseLastVideoPrompt()">♻️ Réutiliser le dernier prompt</button>
+                </div>
+
+                <div class="translate-row">
+                    <label>Traduire en :</label>
+                    <select id="videoLangSelect">
+                        <option value="en">English</option><option value="fr">Français</option><option value="zh">中文</option>
+                    </select>
+                    <button onclick="translatePrompt('videoPrompt', 'videoLangSelect')">🌐 Traduire</button>
+                </div>
+
+                <div class="prompt-row" style="align-items: flex-start;">
+                    <textarea id="videoPrompt" style="min-height: 80px; resize: vertical;" placeholder="Décrivez l'animation souhaitée..."></textarea>
+                    <div class="prompt-actions" style="flex-direction: column;">
+                        <button class="icon-btn" id="micVideo" title="Dicter">🎤</button>
+                    </div>
+                </div>
+
+                <!-- Préréglages -->
+                <div style="font-size: 0.78rem; font-weight: 600; color: var(--text2); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.4rem;">Préréglages rapides</div>
+                <div class="presets-row" id="presetsRow"></div>
+
+                <div class="options-grid">
                     <div class="option-group">
-                        <label>Taille</label>
-                        <select id="imageSize"><option value="1K">1K</option><option value="2K" selected>2K</option></select>
+                        <label>Modèle</label>
+                        <select id="videoModel"><option value="agnes-video-v2.0">agnes-video-v2.0</option></select>
                     </div>
                     <div class="option-group">
-                        <label>Ratio</label>
-                        <select id="imageRatio">
-                            <option value="1:1">1:1 (Carré)</option>
-                            <option value="16:9">16:9 (Paysage)</option>
-                            <option value="9:16">9:16 (Portrait)</option>
-                            <option value="4:3">4:3</option>
-                            <option value="3:4">3:4</option>
+                        <label>Durée (secondes)</label>
+                        <select id="videoDuration">
+                            <option value="5">5s</option>
+                            <option value="10" selected>10s</option>
+                            <option value="15">15s</option>
+                            <option value="20">20s</option>
                         </select>
                     </div>
                     <div class="option-group">
-                        <label>Style</label>
-                        <select id="imageStyle">
+                        <label>Frame rate</label>
+                        <select id="videoFps"><option value="24" selected>24 fps</option></select>
+                    </div>
+                    <div class="option-group">
+                        <label>Style visuel</label>
+                        <select id="videoStyle">
                             <option value="">Automatique</option>
-                            <option value="photorealistic">Photorealistic</option>
-                            <option value="digital art">Digital Art</option>
-                            <option value="anime">Anime</option>
-                            <option value="3d render">3D Render</option>
+                            <option value="cinematic realism">Réalisme cinématographique</option>
+                            <option value="anime style">Style anime</option>
+                            <option value="cyberpunk neon">Cyberpunk néon</option>
+                            <option value="watercolor painting">Aquarelle</option>
                             <option value="oil painting">Peinture à l'huile</option>
-                            <option value="watercolor">Aquarelle</option>
-                            <option value="cyberpunk">Cyberpunk</option>
+                            <option value="documentary">Documentaire</option>
+                            <option value="fantasy epic">Épique fantastique</option>
+                            <option value="vintage film">Film vintage</option>
                         </select>
                     </div>
                     <div class="option-group">
                         <label>Environnement</label>
-                        <select id="imageEnv">
+                        <select id="videoEnv">
                             <option value="">Automatique</option>
-                            <option value="studio lighting">Studio</option>
-                            <option value="natural light">Lumière naturelle</option>
-                            <option value="sunset">Coucher de soleil</option>
-                            <option value="night city">Ville de nuit</option>
-                            <option value="forest">Forêt</option>
-                            <option value="ocean">Océan</option>
-                            <option value="space">Espace</option>
+                            <option value="tropical beach">Plage tropicale</option>
+                            <option value="lush forest">Forêt luxuriante</option>
+                            <option value="ocean reef">Récif océanique</option>
+                            <option value="volcanic landscape">Paysage volcanique</option>
+                            <option value="urban street">Rue urbaine</option>
+                            <option value="ancient medina">Médina ancienne</option>
+                            <option value="starlit sky">Ciel étoilé</option>
+                            <option value="underwater">Sous-marin</option>
                         </select>
                     </div>
                     <div class="option-group">
-                        <label>Format</label>
-                        <select id="imageFormat"><option value="url">URL</option><option value="b64_json">Base64</option></select>
+                        <label>Mouvement caméra</label>
+                        <select id="videoMotion">
+                            <option value="">Automatique</option>
+                            <option value="slow pan">Panoramique lent</option>
+                            <option value="dolly zoom">Dolly zoom</option>
+                            <option value="tracking shot">Travelling</option>
+                            <option value="aerial drone">Drone aérien</option>
+                            <option value="handheld">Caméra à l'épaule</option>
+                            <option value="static">Statique</option>
+                            <option value="orbit">Orbite</option>
+                            <option value="zoom in">Zoom avant</option>
+                            <option value="zoom out">Zoom arrière</option>
+                        </select>
+                    </div>
+                    <div class="option-group">
+                        <label>Prompt négatif</label>
+                        <input type="text" id="videoNeg" placeholder="Ex: flou, déformation...">
                     </div>
                 </div>
-                <button class="gen-btn" id="genImageBtn" onclick="generateImage()">✨ Générer l'image</button>
-                <div class="result-area" id="imageResult"><div class="placeholder">L'image générée apparaîtra ici.</div></div>
+
+                <button class="prompt-preview-toggle" onclick="togglePromptPreview()">👁️ Aperçu du prompt envoyé <span id="promptPreviewArrow">▼</span></button>
+                <div class="prompt-preview" id="promptPreview"></div>
+
+                <button class="gen-btn" id="genVideoBtn" onclick="generateVideoFromImage()">🎬 Générer la vidéo</button>
+                <div class="result-area video-result" id="videoResult">
+                    <div class="placeholder">La vidéo générée apparaîtra ici (cela peut prendre plusieurs minutes).</div>
+                </div>
+            </div>
+
+            <!-- Galerie -->
+            <div class="card" id="galleryCard" style="display:none;">
+                <div class="gallery-header">
+                    <h2 style="margin: 0;">📼 Vidéos générées <span class="badge" id="galleryCount">0</span></h2>
+                    <button class="chat-toolbar-btn" onclick="clearGallery()">🗑️ Vider la galerie</button>
+                </div>
+                <div class="gallery-grid" id="galleryGrid"></div>
             </div>
         </div>
     </main>
@@ -612,21 +452,374 @@
         //  CONFIGURATION
         // ============================================================
         const BASE_URL = 'https://apihub.agnes-ai.com/v1';
+        const RAW_URL = 'https://apihub.agnes-ai.com';
         const TRANSLATE_URL = 'https://translate.googleapis.com/translate_a/single';
+
+        const CONVERSATION_STORAGE_KEY = 'ankili_conversation';
+        const GALLERY_STORAGE_KEY = 'ankili_video_gallery';
+        const PREFS_STORAGE_KEY = 'ankili_prefs';
+        const MAX_GALLERY_ITEMS = 20;
+
+        const VIDEO_MODEL = 'agnes-video-v2.0';
+        const DEFAULT_FPS = 24;
+
+        const FIRST_POLL_DELAY_MS = 60000;
+        const POLL_INTERVAL_MS = 15000;
+        const MAX_POLL_ATTEMPTS = 40;
+
+        const MAX_CREATE_RETRIES = 6;
+        const BACKOFF_BASE_MS = 3000;
+        const BACKOFF_MAX_MS = 60000;
+        const RETRYABLE_STATUSES = [503, 429, 500, 502, 520, 522, 524];
+
+        const API_TIMEOUT_MS = 120000; // 2 min max par appel réseau
 
         let currentApiKey = '';
         let recognition = null;
         let currentRecordingBtn = null;
+        let conversation = [];
+        let isGenerating = false;
+        let videoImageDataUri = null;
+
+        function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+        // ------------------------------------------------------------
+        //  FETCH AVEC TIMEOUT
+        // ------------------------------------------------------------
+        async function fetchWithTimeout(url, options = {}, timeoutMs = API_TIMEOUT_MS) {
+            const controller = new AbortController();
+            const id = setTimeout(() => controller.abort(), timeoutMs);
+            try {
+                return await fetch(url, { ...options, signal: controller.signal });
+            } finally {
+                clearTimeout(id);
+            }
+        }
+
+        // ------------------------------------------------------------
+        //  num_frames valide (8n+1)
+        // ------------------------------------------------------------
+        function toValidNumFrames(durationSeconds, fps) {
+            const target = durationSeconds * fps;
+            const n = Math.max(0, Math.round((target - 1) / 8));
+            return 8 * n + 1;
+        }
+
+        // ============================================================
+        //  BASE DE CONNAISSANCES COMORES
+        // ============================================================
+        const COMORES_KNOWLEDGE_BASE = {
+            identite: {
+                nom_officiel: "Union des Comores", nom_comorien: "Udzima wa Komori",
+                capitale: "Moroni (Grande-Comore)",
+                langues: ["shiKomori (comorien)", "français", "arabe"],
+                monnaie: "Franc comorien (KMF)", population: "environ 900 000 habitants",
+                superficie: "1 862 km² (hors Mayotte)", independance: "6 juillet 1975 (de la France)",
+                iles: [
+                    { nom: "Grande-Comore", comorien: "Ngazidja", chef_lieu: "Moroni" },
+                    { nom: "Anjouan", comorien: "Ndzuwani", chef_lieu: "Mutsamudu" },
+                    { nom: "Mohéli", comorien: "Mwali", chef_lieu: "Fomboni" },
+                    { nom: "Mayotte", comorien: "Maore", statut: "Reste sous administration française (département 976)" }
+                ]
+            },
+            langue_shikomori: {
+                nom: "shiKomori", famille: "Langue bantoue (groupe G40 selon Guthrie)",
+                locuteurs: "environ 900 000",
+                varietes: [
+                    { nom: "shiNgazidja", ile: "Grande-Comore" },
+                    { nom: "shiNdzuani", ile: "Anjouan" },
+                    { nom: "shiMwali", ile: "Mohéli" },
+                    { nom: "shiMaore", ile: "Mayotte" }
+                ],
+                alphabet: "Alphabet latin, avec lettres additionnelles (dh, gh, ny, sh, th, ts, ndz, mb, mv, ng...)",
+                orthographe_officielle: "Décret n° 09-135 / PR du 12 décembre 2009",
+                salutations: {
+                    bonjour: "Salama / Ye Mwaha", bonsoir: "Ye Masiwa",
+                    comment_vas_tu: "Habari / Ufanyadje ?", bien_merci: "Salama / Ndjema",
+                    au_revoir: "Kwaheri / Mwaha", merci: "Asante / Marahaba",
+                    oui: "Ewa / Ndiyo", non: "La / Hapana"
+                },
+                ressources: [
+                    { nom: "ORELC", description: "Écosystème complet : Luha, Do, Eo, Co, No, API", url: "orelc.ac", type: "gratuit" },
+                    { nom: "Luha", description: "Application d'apprentissage avec répétition espacée, cours, grammaire, Memory", url: "luha.orelc.ac", type: "gratuit" },
+                    { nom: "Do", description: "Dictionnaire numérique du shiKomori, 4 variétés, FR↔KM", url: "dictionary.orelc.ac", type: "gratuit" },
+                    { nom: "Targumi", description: "178+ leçons en 33 modules, audio natif, quiz, cours live", url: "targumi.com", type: "freemium" },
+                    { nom: "K@LIMA", description: "App Android gratuite : leçons, traduction, vocabulaire, quiz", url: "Google Play", type: "gratuit" },
+                    { nom: "Alpha Tiles", description: "Jeu de lecture hors ligne, reconnaissance des lettres/sons", url: "steps.nextgenu.org", type: "gratuit" },
+                    { nom: "Lexilogos", description: "Portail linguistique : dictionnaires, grammaires, proverbes", url: "lexilogos.com", type: "gratuit" },
+                    { nom: "shiKomoriNLP", description: "Ressources NLP sur Hugging Face : corpus, dictionnaires", url: "huggingface.co", type: "open source" },
+                    { nom: "CNRS - LGIDF", description: "Fiches linguistiques sur la phonologie comorienne", url: "lgidf.cnrs.fr", type: "gratuit" }
+                ]
+            },
+            culture: {
+                cuisine: { plats_principaux: [
+                    { nom: "Pilaou", description: "Riz épicé au poulet ou poisson" },
+                    { nom: "Ypegna", description: "Feuilles de manioc pilées au lait de coco" },
+                    { nom: "Goudougoudou", description: "Gâteau épicé à base de riz et banane" },
+                    { nom: "Mkatra foutra", description: "Beignets de farine et lait de coco" },
+                    { nom: "Kokotrede", description: "Poisson grillé mariné aux épices" },
+                    { nom: "Langouste", description: "Spécialité des îles" },
+                    { nom: "Mataba", description: "Feuilles de taro au lait de coco" },
+                    { nom: "Mishkaki", description: "Brochettes de viande marinées" }
+                ]},
+                musique: {
+                    instruments: ["gabusi (luth à 5 cordes)", "ndzedze (cithare)", "tari (tambour)", "mshogoro", "dhol"],
+                    genres: ["sambe", "tari", "bora", "twarabu", "harusi", "chigoma"]
+                },
+                vetements: { hommes: "Kofia, kanzou, shali", femmes: "Shali, leso, bijoux en or" },
+                traditions: ["Anda (Grand Mariage)", "Harusi", "Twarabu", "Sambe"],
+                proverbes: [
+                    "« Qui mange seul meurt seul »",
+                    "« Ceux qui te punissent sont ceux qui t'aiment »",
+                    "« Les problèmes ne se résolvent pas si on les tait »",
+                    "« La pirogue ne va pas plus vite que la mer »",
+                    "« Un seul doigt ne peut pas laver le visage »"
+                ],
+                religion: "Islam sunnite (majoritaire, ~98%)"
+            },
+            geographie: {
+                climat: "Tropical maritime", relief: "Îles volcaniques, Karthala (2 361 m)",
+                faune_flore: ["lémuriens", "tortues marines", "baleines à bosse", "ylang-ylang", "vanille", "girofle"],
+                paysages: ["plages de sable blanc", "récifs coralliens", "forêts tropicales", "volcans actifs", "lagons turquoise"]
+            },
+            drapeau: {
+                description: "Quatre bandes horizontales : jaune, blanc, rouge, bleu — triangle vert avec croissant blanc et 4 étoiles",
+                symbolisme: {
+                    jaune: "Mohéli (Mwali)", blanc: "Mayotte (Maore)",
+                    rouge: "Anjouan (Ndzuwani)", bleu: "Grande-Comore (Ngazidja)",
+                    vert_triangle: "Islam et unité nationale", croissant: "Islam",
+                    quatre_etoiles: "Les quatre îles de l'archipel"
+                }
+            },
+            personnalites: [
+                "Saïd Mohamed Cheikh", "Ahmed Abdallah", "Nassur Attoumani",
+                "Soubi", "Maalesh", "Chamsia Sitti"
+            ],
+            contexte_ia: "Les Comores forment un archipel de l'océan Indien au carrefour des cultures africaine, arabe et française. La langue shiKomori est une langue bantoue à quatre variétés. L'utilisateur d'Ankili IA est très probablement comorien ou de la diaspora comorienne et souhaite des réponses authentiques, respectueuses et culturellement justes. Privilégie les références locales, l'orthographe officielle du shiKomori et les sources comoriennes (ORELC, etc.)."
+        };
+
+        function buildComoresContext(forImage = false, forVideo = false) {
+            const kb = COMORES_KNOWLEDGE_BASE;
+            if (forImage) {
+                return `Tu génères des images dans un contexte comorien authentique.
+Archipel des Comores (océan Indien, entre Madagascar et Mozambique) :
+- Paysages : plages de sable blanc, lagons turquoise, récifs coralliens, forêts tropicales, volcan Karthala (2 361 m)
+- Architecture : maisons swahilies en corail, portes sculptées, mosquées blanches, ruelles de Moroni
+- Ambiance : marchés colorés, pirogues traditionnelles, coucher de soleil doré
+- Personnes : vêtements traditionnels (kanzou, kofia, shali, leso), bijoux en or
+- Faune/flore : ylang-ylang, vanille, girofle, cocotiers, lémuriens, tortues marines
+- Lumière : tropicale, chaude, contraste fort
+- Style : authentique, respectueux, pas de stéréotypes
+Conserve les noms locaux (Moroni, Mutsamudu, Fomboni, Ngazidja, Ndzuwani, Mwali).`;
+            }
+            if (forVideo) {
+                return `Tu génères des vidéos dans un contexte comorien authentique.
+Archipel des Comores (océan Indien) :
+- Paysages : plages de sable blanc, lagons turquoise, volcan Karthala, forêts tropicales
+- Architecture : maisons swahilies en corail, portes sculptées, mosquées blanches
+- Ambiance : marchés colorés, pirogues, coucher de soleil sur l'océan Indien
+- Personnes : vêtements traditionnels (kanzou, kofia, shali, leso), bijoux en or
+- Faune/flore : ylang-ylang, vanille, girofle, cocotiers, lémuriens, tortues marines
+- Mouvements naturels : vent dans les palmiers, vagues, oiseaux, pirogues qui glissent
+- Style : authentique, respectueux, pas de stéréotypes
+Conserve les noms locaux. Décris les mouvements de caméra de manière cinématographique.`;
+            }
+            const langues = kb.identite.langues.join(', ');
+            const iles = kb.identite.iles.map(i => `${i.nom} (${i.comorien || i.statut || ''})`).join(' · ');
+            const varietes = kb.langue_shikomori.varietes.map(v => v.nom + ' — ' + v.ile).join(', ');
+            const ressources = kb.langue_shikomori.ressources.map(r => `- ${r.nom} (${r.type}) : ${r.description} [${r.url}]`).join('\n');
+            const salutations = Object.entries(kb.langue_shikomori.salutations).map(([k, v]) => `  • ${k} : ${v}`).join('\n');
+            const plats = kb.culture.cuisine.plats_principaux.map(p => `  • ${p.nom} : ${p.description}`).join('\n');
+            const proverbes = kb.culture.proverbes.map(p => `  • ${p}`).join('\n');
+            const symbolisme = Object.entries(kb.drapeau.symbolisme).map(([k, v]) => `  • ${k} : ${v}`).join('\n');
+
+            return `Tu es Ankili IA, assistant spécialisé sur les Comores. Réponds en français (ou langue demandée) avec authenticité, respect et précision culturelle.
+
+═══ IDENTITÉ ═══
+• Nom officiel : ${kb.identite.nom_officiel} (${kb.identite.nom_comorien})
+• Capitale : ${kb.identite.capitale}
+• Langues : ${langues}
+• Monnaie : ${kb.identite.monnaie}
+• Population : ${kb.identite.population}
+• Superficie : ${kb.identite.superficie}
+• Indépendance : ${kb.identite.independance}
+• Îles : ${iles}
+
+═══ LANGUE SHIKOMORI ═══
+• Famille : ${kb.langue_shikomori.famille}
+• Locuteurs : ${kb.langue_shikomori.locuteurs}
+• Variétés : ${varietes}
+• Alphabet : ${kb.langue_shikomori.alphabet}
+• Orthographe officielle : ${kb.langue_shikomori.orthographe_officielle}
+
+Salutations :
+${salutations}
+
+Ressources :
+${ressources}
+
+═══ CUISINE ═══
+${plats}
+
+═══ MUSIQUE ═══
+• Instruments : ${kb.culture.musique.instruments.join(', ')}
+• Genres : ${kb.culture.musique.genres.join(', ')}
+
+═══ PROVERBES ═══
+${proverbes}
+
+═══ DRAPEAU ═══
+${kb.drapeau.description}
+${symbolisme}
+
+═══ CONTEXTE ═══
+${kb.contexte_ia}
+
+INSTRUCTIONS : Réponds avec ces informations en priorité. Cite les ressources réelles (ORELC, Targumi, K@LIMA). Respecte les noms locaux. Pas de stéréotypes. Tiens compte de l'historique de la conversation.`;
+        }
+
+        // ============================================================
+        //  CHAT (corrigé)
+        // ============================================================
+        function loadConversation() {
+            try {
+                const raw = localStorage.getItem(CONVERSATION_STORAGE_KEY);
+                if (raw) conversation = JSON.parse(raw) || [];
+                // Nettoyage : on filtre tout ce qui n'est pas user/assistant
+                conversation = conversation.filter(m => m && (m.role === 'user' || m.role === 'assistant' || m.role === 'error'));
+            } catch (e) { conversation = []; }
+        }
+        function saveConversation() {
+            try { localStorage.setItem(CONVERSATION_STORAGE_KEY, JSON.stringify(conversation)); }
+            catch (e) { console.warn('Sauvegarde conversation impossible', e); }
+        }
+
+        // ✅ FIX : filtre les rôles valides pour l'API
+        function sanitizeMessagesForAPI(conv) {
+            return conv
+                .filter(m => m.role === 'user' || m.role === 'assistant')
+                .map(m => ({ role: m.role, content: m.content }));
+        }
+
+        function renderConversation() {
+            const container = document.getElementById('chatMessages');
+            if (!container) return;
+
+            // ✅ FIX : on recrée entièrement le contenu, y compris le bloc vide
+            if (conversation.length === 0) {
+                container.innerHTML = `
+                    <div class="chat-empty">
+                        👋 Bienvenue sur Ankili IA. Posez votre première question !
+                        <div class="examples">
+                            <div class="example" onclick="setPrompt('Apprends-moi à dire bonjour en shiKomori')">💬 « Apprends-moi à dire bonjour en shiKomori »</div>
+                            <div class="example" onclick="setPrompt('Parle-moi de la cuisine comorienne')">🍲 « Parle-moi de la cuisine comorienne »</div>
+                            <div class="example" onclick="setPrompt('Quelles sont les ressources pour apprendre le comorien ?')">📚 « Quelles sont les ressources pour apprendre le comorien ? »</div>
+                            <div class="example" onclick="setPrompt('Quelle est la signification du drapeau comorien ?')">🇰🇲 « Quelle est la signification du drapeau comorien ? »</div>
+                        </div>
+                    </div>
+                `;
+                return;
+            }
+
+            const frag = document.createDocumentFragment();
+            conversation.forEach((msg, i) => frag.appendChild(buildMessageElement(msg, i)));
+            if (isGenerating) frag.appendChild(buildTypingElement());
+            container.innerHTML = '';
+            container.appendChild(frag);
+            requestAnimationFrame(() => { container.scrollTop = container.scrollHeight; });
+        }
+
+        function buildMessageElement(msg, index) {
+            const div = document.createElement('div');
+            const isUser = msg.role === 'user';
+            const isError = msg.role === 'error';
+            div.className = 'msg ' + (isError ? 'error' : (isUser ? 'user' : 'assistant'));
+
+            const avatar = document.createElement('div');
+            avatar.className = 'msg-avatar';
+            avatar.textContent = isError ? '⚠' : (isUser ? '👤' : '🌴');
+
+            const body = document.createElement('div');
+            body.className = 'msg-body';
+
+            const header = document.createElement('div');
+            header.className = 'msg-header';
+            header.textContent = isError ? 'Erreur' : (isUser ? 'Vous' : 'Ankili IA');
+            if (msg.ts) {
+                const time = document.createElement('span');
+                time.style.cssText = 'font-weight:400;text-transform:none;letter-spacing:0;';
+                time.textContent = ' · ' + new Date(msg.ts).toLocaleTimeString();
+                header.appendChild(time);
+            }
+
+            const bubble = document.createElement('div');
+            bubble.className = 'msg-bubble';
+            bubble.textContent = msg.content;
+
+            body.appendChild(header);
+            body.appendChild(bubble);
+
+            if (!isUser && !isError) {
+                const actions = document.createElement('div');
+                actions.className = 'msg-actions';
+                const copyBtn = document.createElement('button');
+                copyBtn.textContent = '📋 Copier';
+                copyBtn.onclick = () => copyToClipboard(msg.content);
+                actions.appendChild(copyBtn);
+                if (index === conversation.length - 1) {
+                    const regenBtn = document.createElement('button');
+                    regenBtn.textContent = '🔄 Régénérer';
+                    regenBtn.onclick = () => regenerateLast();
+                    actions.appendChild(regenBtn);
+                }
+                body.appendChild(actions);
+            }
+
+            div.appendChild(avatar);
+            div.appendChild(body);
+            return div;
+        }
+
+        function buildTypingElement() {
+            const div = document.createElement('div');
+            div.className = 'msg assistant msg-typing';
+            div.innerHTML = `
+                <div class="msg-avatar">🌴</div>
+                <div class="msg-body">
+                    <div class="msg-header">Ankili IA</div>
+                    <div class="msg-bubble">En train d'écrire <span class="typing-dots"><span></span><span></span><span></span></span></div>
+                </div>
+            `;
+            return div;
+        }
+
+        function setPrompt(text) {
+            const ta = document.getElementById('textPrompt');
+            ta.value = text;
+            ta.focus();
+            autoResizeTextarea(ta);
+        }
+
+        function clearConversation() {
+            if (conversation.length === 0) { showToast('Conversation déjà vide.', 'success'); return; }
+            if (!confirm('Effacer toute la conversation ?')) return;
+            conversation = [];
+            saveConversation();
+            renderConversation();
+            showToast('🗑️ Nouvelle conversation.', 'success');
+        }
+
+        function autoResizeTextarea(el) {
+            el.style.height = 'auto';
+            el.style.height = Math.min(el.scrollHeight, 200) + 'px';
+        }
 
         // ============================================================
         //  PANNEAU CONFIG
         // ============================================================
-        function toggleConfigPanel() {
-            document.getElementById('configPanel').classList.toggle('visible');
-        }
-
+        function toggleConfigPanel() { document.getElementById('configPanel').classList.toggle('visible'); }
         function clearStoredKey() {
-            if (!confirm('Effacer la clé API sauvegardée dans ce navigateur ?')) return;
+            if (!confirm('Effacer la clé API sauvegardée ?')) return;
             localStorage.removeItem('agnes_api_key');
             document.getElementById('apiKeyInput').value = '';
             currentApiKey = '';
@@ -635,37 +828,26 @@
             document.getElementById('testResult').className = 'config-test-result';
             showToast('🗑️ Clé effacée.', 'success');
         }
-
         function updateKeyStatus() {
             const key = document.getElementById('apiKeyInput').value.trim();
             document.getElementById('statusDot').classList.toggle('connected', key.length > 10 && key.startsWith('sk-'));
         }
-
         async function testApiConnection() {
             const key = document.getElementById('apiKeyInput').value.trim();
             const btn = document.getElementById('testConnectionBtn');
             const result = document.getElementById('testResult');
-
-            if (!key) {
-                result.textContent = '❌ Saisissez d\'abord une clé.';
-                result.className = 'config-test-result error';
-                return;
-            }
-            btn.disabled = true;
-            btn.textContent = '⏳ Test...';
-            result.textContent = '🔍 Vérification...';
-            result.className = 'config-test-result testing';
-
+            if (!key) { result.textContent = '❌ Saisissez une clé.'; result.className = 'config-test-result error'; return; }
+            btn.disabled = true; btn.textContent = '⏳ Test...';
+            result.textContent = '🔍 Vérification...'; result.className = 'config-test-result testing';
             try {
-                const res = await fetch(`${BASE_URL}/chat/completions`, {
+                const res = await fetchWithTimeout(`${BASE_URL}/chat/completions`, {
                     method: 'POST',
                     headers: { 'Authorization': `Bearer ${key}`, 'Content-Type': 'application/json' },
                     body: JSON.stringify({ model: 'agnes-2.5-flash', messages: [{ role: 'user', content: 'test' }], max_tokens: 5 })
-                });
+                }, 30000);
                 if (res.status === 401) throw new Error('401 — Clé invalide.');
                 if (res.status === 403) throw new Error('403 — Accès refusé.');
                 if (!res.ok) throw new Error(`Erreur ${res.status}.`);
-
                 result.innerHTML = '✅ <strong>Succès !</strong> Clé opérationnelle.';
                 result.className = 'config-test-result success';
                 localStorage.setItem('agnes_api_key', key);
@@ -675,13 +857,12 @@
                 result.textContent = '❌ ' + err.message;
                 result.className = 'config-test-result error';
             } finally {
-                btn.disabled = false;
-                btn.textContent = '🔍 Tester la connexion';
+                btn.disabled = false; btn.textContent = '🔍 Tester la connexion';
             }
         }
 
         // ============================================================
-        //  NAVIGATION
+        //  NAVIGATION + VOIX + TRADUCTION
         // ============================================================
         document.querySelectorAll('#tabs button').forEach(btn => {
             btn.addEventListener('click', () => {
@@ -692,16 +873,13 @@
             });
         });
 
-        // ============================================================
-        //  RECONNAISSANCE VOCALE
-        // ============================================================
         function initSpeechRecognition(btnId, textareaId, lang = 'fr-FR') {
             const btn = document.getElementById(btnId);
             const textarea = document.getElementById(textareaId);
+            if (!btn || !textarea) return;
             btn.addEventListener('click', () => {
                 if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
-                    showToast('Reconnaissance vocale non supportée.', 'error');
-                    return;
+                    showToast('Reconnaissance vocale non supportée.', 'error'); return;
                 }
                 if (recognition && currentRecordingBtn) {
                     recognition.stop();
@@ -713,95 +891,142 @@
                 recognition.lang = lang;
                 recognition.interimResults = false;
                 recognition.maxAlternatives = 1;
-                recognition.onstart = () => {
-                    btn.classList.add('recording');
-                    currentRecordingBtn = btn;
-                    showToast('🎤 Écoute en cours...', 'success');
-                };
-                recognition.onresult = (e) => {
-                    textarea.value += (textarea.value ? ' ' : '') + e.results[0][0].transcript;
-                };
+                recognition.onstart = () => { btn.classList.add('recording'); currentRecordingBtn = btn; showToast('🎤 Écoute...', 'success'); };
+                recognition.onresult = (e) => { textarea.value += (textarea.value ? ' ' : '') + e.results[0][0].transcript; autoResizeTextarea(textarea); };
                 recognition.onerror = (e) => { showToast('Erreur micro : ' + e.error, 'error'); };
-                recognition.onend = () => {
-                    btn.classList.remove('recording');
-                    currentRecordingBtn = null;
-                };
+                recognition.onend = () => { btn.classList.remove('recording'); currentRecordingBtn = null; };
                 recognition.start();
             });
         }
         initSpeechRecognition('micText', 'textPrompt');
         initSpeechRecognition('micImage', 'imagePrompt');
+        initSpeechRecognition('micVideo', 'videoPrompt');
 
-        // ============================================================
-        //  TRADUCTION
-        // ============================================================
         async function translatePrompt(textareaId, selectId) {
             const ta = document.getElementById(textareaId);
             const tl = document.getElementById(selectId).value;
             const text = ta.value.trim();
-            if (!text) { showToast('Saisissez d\'abord un texte.', 'error'); return; }
+            if (!text) { showToast('Saisissez un texte.', 'error'); return; }
             try {
-                showToast('🌐 Traduction en cours...', 'success');
+                showToast('🌐 Traduction...', 'success');
                 const url = `${TRANSLATE_URL}?client=gtx&sl=auto&tl=${tl}&dt=t&q=${encodeURIComponent(text)}`;
-                const res = await fetch(url);
+                const res = await fetchWithTimeout(url, {}, 15000);
                 const data = await res.json();
                 ta.value = data[0].map(i => i[0]).join('');
-                showToast('✅ Traduction terminée !', 'success');
+                showToast('✅ Traduit !', 'success');
             } catch (e) { showToast('Erreur de traduction.', 'error'); }
         }
 
         // ============================================================
         //  CLÉ API
         // ============================================================
-        function getApiKey() {
-            return (localStorage.getItem('agnes_api_key') || '').trim();
-        }
-
+        function getApiKey() { return (localStorage.getItem('agnes_api_key') || '').trim(); }
         const apiKeyInput = document.getElementById('apiKeyInput');
         const statusDot = document.getElementById('statusDot');
-        apiKeyInput.addEventListener('input', () => {
-            currentApiKey = apiKeyInput.value.trim();
-            updateKeyStatus();
-        });
-        apiKeyInput.addEventListener('blur', () => {
-            const k = apiKeyInput.value.trim();
-            if (k) localStorage.setItem('agnes_api_key', k);
-        });
-
-        function apiHeaders() {
-            return { 'Authorization': `Bearer ${getApiKey()}`, 'Content-Type': 'application/json' };
-        }
+        apiKeyInput.addEventListener('input', () => { currentApiKey = apiKeyInput.value.trim(); updateKeyStatus(); });
+        apiKeyInput.addEventListener('blur', () => { const k = apiKeyInput.value.trim(); if (k) localStorage.setItem('agnes_api_key', k); });
+        function apiHeaders() { return { 'Authorization': `Bearer ${getApiKey()}`, 'Content-Type': 'application/json' }; }
 
         // ============================================================
-        //  TEXTE
+        //  TEXTE (corrigé)
         // ============================================================
         async function generateText() {
-            const prompt = document.getElementById('textPrompt').value.trim();
+            if (isGenerating) return;
+
+            const ta = document.getElementById('textPrompt');
+            const prompt = ta.value.trim();
+            if (!prompt) { showToast('Écrivez un message.', 'error'); return; }
+            if (!getApiKey()) { showToast('Clé API requise.', 'error'); return; }
+
+            // Ajoute le message utilisateur
+            conversation.push({ role: 'user', content: prompt, ts: Date.now() });
+            saveConversation();
+            ta.value = ''; autoResizeTextarea(ta);
+
+            isGenerating = true;
+            document.getElementById('sendBtn').disabled = true;
+
+            // ✅ try/catch autour du rendu pour éviter un blocage
+            try { renderConversation(); } catch (e) { console.error('Render error:', e); }
+
             const model = document.getElementById('textModel').value;
             const temp = parseFloat(document.getElementById('textTemp').value) || 0.7;
-            if (!prompt) { showToast('Saisissez un prompt.', 'error'); return; }
-            if (!getApiKey()) { showToast('Clé API requise.', 'error'); return; }
-            const btn = document.getElementById('genTextBtn');
-            btn.disabled = true; btn.textContent = '⏳ Génération...';
-            document.getElementById('textResult').innerHTML = '<div class="placeholder">Génération en cours...</div>';
+
+            // ✅ FIX : on filtre les rôles valides (pas de 'error')
+            const cleanHistory = sanitizeMessagesForAPI(conversation);
+            const messages = [
+                { role: 'system', content: buildComoresContext(false) },
+                ...cleanHistory
+            ];
+
+            console.log(`💬 Envoi chat — modèle: ${model}, ${cleanHistory.length} messages d'historique`);
+
             try {
-                const res = await fetch(`${BASE_URL}/chat/completions`, {
+                const res = await fetchWithTimeout(`${BASE_URL}/chat/completions`, {
                     method: 'POST', headers: apiHeaders(),
-                    body: JSON.stringify({ model, messages: [{ role: 'user', content: prompt }], temperature: temp })
-                });
+                    body: JSON.stringify({ model, messages, temperature: temp })
+                }, API_TIMEOUT_MS);
+
+                if (!res.ok) {
+                    const e = await res.json().catch(() => ({}));
+                    throw new Error(e.error?.message || `Erreur ${res.status}`);
+                }
+
+                const data = await res.json();
+                const content = data.choices?.[0]?.message?.content || 'Aucune réponse.';
+                conversation.push({ role: 'assistant', content, ts: Date.now() });
+                saveConversation();
+                console.log('✅ Réponse reçue');
+            } catch (err) {
+                console.error('❌ Erreur chat:', err);
+                const msg = err.name === 'AbortError' ? 'Délai dépassé (2 min).' : err.message;
+                conversation.push({ role: 'error', content: msg, ts: Date.now() });
+                saveConversation();
+                showToast(msg, 'error');
+            } finally {
+                isGenerating = false;
+                document.getElementById('sendBtn').disabled = false;
+                try { renderConversation(); } catch (e) { console.error('Render error (final):', e); }
+                ta.focus();
+            }
+        }
+
+        async function regenerateLast() {
+            if (isGenerating) return;
+            if (conversation.length === 0) return;
+            if (conversation[conversation.length - 1].role === 'assistant') conversation.pop();
+            while (conversation.length && conversation[conversation.length - 1].role === 'error') conversation.pop();
+            if (conversation.length === 0) { renderConversation(); return; }
+            saveConversation();
+            isGenerating = true;
+            document.getElementById('sendBtn').disabled = true;
+            try { renderConversation(); } catch (e) { console.error(e); }
+
+            const model = document.getElementById('textModel').value;
+            const temp = parseFloat(document.getElementById('textTemp').value) || 0.7;
+            const cleanHistory = sanitizeMessagesForAPI(conversation);
+            const messages = [
+                { role: 'system', content: buildComoresContext(false) },
+                ...cleanHistory
+            ];
+            try {
+                const res = await fetchWithTimeout(`${BASE_URL}/chat/completions`, {
+                    method: 'POST', headers: apiHeaders(),
+                    body: JSON.stringify({ model, messages, temperature: temp })
+                }, API_TIMEOUT_MS);
                 if (!res.ok) { const e = await res.json().catch(() => ({})); throw new Error(e.error?.message || `Erreur ${res.status}`); }
                 const data = await res.json();
                 const content = data.choices?.[0]?.message?.content || 'Aucune réponse.';
-                document.getElementById('textResult').innerHTML = `
-                    <div class="text-output">${escapeHtml(content)}</div>
-                    <div class="result-actions"><button onclick="copyToClipboard(\`${escapeBacktick(content)}\`)">📋 Copier</button></div>
-                `;
-                showToast('✅ Texte généré !', 'success');
+                conversation.push({ role: 'assistant', content, ts: Date.now() });
+                saveConversation();
             } catch (err) {
-                document.getElementById('textResult').innerHTML = `<div class="placeholder" style="color:var(--danger);">❌ ${escapeHtml(err.message)}</div>`;
+                conversation.push({ role: 'error', content: err.message, ts: Date.now() });
+                saveConversation();
                 showToast(err.message, 'error');
             } finally {
-                btn.disabled = false; btn.textContent = '✨ Générer le texte';
+                isGenerating = false;
+                document.getElementById('sendBtn').disabled = false;
+                try { renderConversation(); } catch (e) { console.error(e); }
             }
         }
 
@@ -821,21 +1046,22 @@
             let fullPrompt = prompt;
             if (style) fullPrompt += `, style: ${style}`;
             if (env) fullPrompt += `, environment: ${env}`;
+            fullPrompt = buildComoresContext(true) + '\n\n---\n\n' + fullPrompt;
             const btn = document.getElementById('genImageBtn');
             btn.disabled = true; btn.textContent = '⏳ Génération...';
-            document.getElementById('imageResult').innerHTML = '<div class="placeholder">Génération en cours...</div>';
+            document.getElementById('imageResult').innerHTML = '<div class="placeholder">Génération...</div>';
             try {
-                const res = await fetch(`${BASE_URL}/images/generations`, {
+                const res = await fetchWithTimeout(`${BASE_URL}/images/generations`, {
                     method: 'POST', headers: apiHeaders(),
                     body: JSON.stringify({ model, prompt: fullPrompt, size, ratio, extra_body: { response_format: format } })
-                });
+                }, API_TIMEOUT_MS);
                 if (!res.ok) { const e = await res.json().catch(() => ({})); throw new Error(e.error?.message || `Erreur ${res.status}`); }
                 const data = await res.json();
                 const img = data.data?.[0];
                 let html = '';
-                if (img?.url) html = `<img src="${img.url}" alt="Image générée"><div class="result-actions"><a href="${img.url}" download target="_blank">⬇️ Télécharger</a></div>`;
-                else if (img?.b64_json) { const src = `data:image/png;base64,${img.b64_json}`; html = `<img src="${src}" alt="Image générée"><div class="result-actions"><a href="${src}" download="ankili-image.png">⬇️ Télécharger</a></div>`; }
-                else html = '<div class="placeholder" style="color:var(--danger);">Aucune image retournée.</div>';
+                if (img?.url) html = `<img src="${img.url}" alt="Image"><div class="result-actions"><a href="${img.url}" download target="_blank">⬇️ Télécharger</a></div>`;
+                else if (img?.b64_json) { const src = `data:image/png;base64,${img.b64_json}`; html = `<img src="${src}" alt="Image"><div class="result-actions"><a href="${src}" download="ankili-image.png">⬇️ Télécharger</a></div>`; }
+                else html = '<div class="placeholder" style="color:var(--danger);">Aucune image.</div>';
                 document.getElementById('imageResult').innerHTML = html;
                 showToast('✅ Image générée !', 'success');
             } catch (err) {
@@ -847,17 +1073,429 @@
         }
 
         // ============================================================
+        //  PRÉRÉGLAGES VIDÉO
+        // ============================================================
+        const VIDEO_PRESETS = [
+            { id: 'comores', label: '🌴 Ambiance comorienne', style: 'cinematic realism', env: 'tropical beach', motion: 'aerial drone', ratio: '16:9' },
+            { id: 'doc', label: '🎬 Documentaire', style: 'documentary', env: 'volcanic landscape', motion: 'handheld', ratio: '16:9' },
+            { id: 'urban', label: '🌃 Cyberpunk urbain', style: 'cyberpunk neon', env: 'urban street', motion: 'tracking shot', ratio: '16:9' },
+            { id: 'fantasy', label: '✨ Fantastique', style: 'fantasy epic', env: 'lush forest', motion: 'orbit', ratio: '16:9' },
+            { id: 'vintage', label: '📽️ Vintage', style: 'vintage film', env: 'ancient medina', motion: 'slow pan', ratio: '4:3' },
+            { id: 'underwater', label: '🌊 Sous-marin', style: 'cinematic realism', env: 'underwater', motion: 'handheld', ratio: '16:9' },
+            { id: 'anime', label: '📖 Anime', style: 'anime style', env: 'starlit sky', motion: 'zoom in', ratio: '9:16' },
+            { id: 'portrait', label: '👤 Portrait vertical', style: 'cinematic realism', env: 'natural light', motion: 'static', ratio: '9:16' }
+        ];
+
+        function renderPresets() {
+            const container = document.getElementById('presetsRow');
+            if (!container) return;
+            container.innerHTML = VIDEO_PRESETS.map(p =>
+                `<button class="preset-chip" data-preset="${p.id}" onclick="applyPreset('${p.id}')">${p.label}</button>`
+            ).join('');
+        }
+
+        function applyPreset(id) {
+            const p = VIDEO_PRESETS.find(x => x.id === id);
+            if (!p) return;
+            document.getElementById('videoStyle').value = p.style;
+            document.getElementById('videoEnv').value = p.env;
+            document.getElementById('videoMotion').value = p.motion;
+            document.getElementById('videoRatio').value = p.ratio;
+            document.querySelectorAll('.preset-chip').forEach(c => c.classList.remove('active'));
+            document.querySelector(`.preset-chip[data-preset="${id}"]`)?.classList.add('active');
+            savePrefs();
+            updatePromptPreview();
+            showToast(`✅ Préréglage "${p.label}" appliqué.`, 'success');
+        }
+
+        // ============================================================
+        //  PRÉFÉRENCES
+        // ============================================================
+        function savePrefs() {
+            try {
+                const prefs = {
+                    videoDuration: document.getElementById('videoDuration')?.value,
+                    videoFps: document.getElementById('videoFps')?.value,
+                    videoStyle: document.getElementById('videoStyle')?.value,
+                    videoEnv: document.getElementById('videoEnv')?.value,
+                    videoMotion: document.getElementById('videoMotion')?.value,
+                    videoRatio: document.getElementById('videoRatio')?.value,
+                    imageModel: document.getElementById('imageModel')?.value,
+                    imageSize: document.getElementById('imageSize')?.value,
+                    textModel: document.getElementById('textModel')?.value
+                };
+                localStorage.setItem(PREFS_STORAGE_KEY, JSON.stringify(prefs));
+            } catch (e) { console.warn('Sauvegarde préférences impossible', e); }
+        }
+        function loadPrefs() {
+            try {
+                const raw = localStorage.getItem(PREFS_STORAGE_KEY);
+                if (!raw) return;
+                const prefs = JSON.parse(raw);
+                Object.entries(prefs).forEach(([k, v]) => {
+                    const el = document.getElementById(k);
+                    if (el && v !== undefined && v !== null) el.value = v;
+                });
+            } catch (e) { console.warn('Chargement préférences impossible', e); }
+        }
+        function attachPrefsListeners() {
+            ['videoDuration','videoFps','videoStyle','videoEnv','videoMotion','videoRatio','imageModel','imageSize','textModel'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.addEventListener('change', () => { savePrefs(); updatePromptPreview(); });
+            });
+        }
+
+        // ============================================================
+        //  APERÇU DU PROMPT
+        // ============================================================
+        function togglePromptPreview() {
+            const el = document.getElementById('promptPreview');
+            el.classList.toggle('visible');
+            document.getElementById('promptPreviewArrow').textContent = el.classList.contains('visible') ? '▲' : '▼';
+            if (el.classList.contains('visible')) updatePromptPreview();
+        }
+        function updatePromptPreview() {
+            const el = document.getElementById('promptPreview');
+            if (!el || !el.classList.contains('visible')) return;
+            const prompt = document.getElementById('videoPrompt').value.trim() || '(vide)';
+            const style = document.getElementById('videoStyle').value;
+            const env = document.getElementById('videoEnv').value;
+            const motion = document.getElementById('videoMotion').value;
+            const duration = parseInt(document.getElementById('videoDuration').value, 10);
+            const fps = parseInt(document.getElementById('videoFps').value, 10);
+            const numFrames = toValidNumFrames(duration, fps);
+
+            let enrich = prompt;
+            if (style) enrich += `, visual style: ${style}`;
+            if (env) enrich += `, environment: ${env}`;
+            if (motion) enrich += `, camera movement: ${motion}`;
+
+            const full = buildComoresContext(false, true) + '\n\n---\n\n' + enrich;
+
+            el.innerHTML = `<strong>[Contexte Comores — ${full.split('\n').length - 1} lignes]</strong>\n` +
+                `\n<strong>[Prompt final]</strong>\n${escapeHtml(enrich)}\n\n` +
+                `<strong>[Paramètres API]</strong>\n` +
+                `• model: ${VIDEO_MODEL}\n` +
+                `• num_frames: ${numFrames}  (${duration}s × ${fps}fps = ${duration*fps} → arrondi 8n+1)\n` +
+                `• frame_rate: ${fps}\n` +
+                `• image: ${videoImageDataUri ? 'Oui (' + Math.round(videoImageDataUri.length / 1024) + ' Ko)' : 'Non'}`;
+        }
+        document.getElementById('videoPrompt')?.addEventListener('input', updatePromptPreview);
+
+        // ============================================================
+        //  VIDÉO — Upload
+        // ============================================================
+        document.getElementById('videoImageUpload').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) handleVideoImage(file);
+        });
+        function handleVideoImage(file) {
+            if (!file.type.startsWith('image/')) { showToast('Fichier non image.', 'error'); return; }
+            if (file.size > 10 * 1024 * 1024) { showToast('Image trop lourde (max 10 MB).', 'error'); return; }
+            const reader = new FileReader();
+            reader.onload = (ev) => {
+                videoImageDataUri = ev.target.result;
+                const preview = document.getElementById('videoUploadPreview');
+                preview.src = videoImageDataUri;
+                preview.style.display = 'block';
+                document.getElementById('uploadActions').style.display = 'flex';
+                updatePromptPreview();
+                showToast('📸 Image chargée !', 'success');
+            };
+            reader.readAsDataURL(file);
+        }
+        function clearVideoImage() {
+            videoImageDataUri = null;
+            document.getElementById('videoImageUpload').value = '';
+            document.getElementById('videoUploadPreview').src = '';
+            document.getElementById('videoUploadPreview').style.display = 'none';
+            document.getElementById('uploadActions').style.display = 'none';
+            updatePromptPreview();
+            showToast('🗑️ Image retirée.', 'success');
+        }
+        function reuseLastVideoPrompt() {
+            try {
+                const gallery = JSON.parse(localStorage.getItem(GALLERY_STORAGE_KEY) || '[]');
+                if (gallery.length === 0) { showToast('Aucun prompt précédent.', 'error'); return; }
+                const last = gallery[0];
+                document.getElementById('videoPrompt').value = last.prompt || '';
+                if (last.style) document.getElementById('videoStyle').value = last.style;
+                if (last.env) document.getElementById('videoEnv').value = last.env;
+                if (last.motion) document.getElementById('videoMotion').value = last.motion;
+                updatePromptPreview();
+                showToast('♻️ Prompt réutilisé.', 'success');
+            } catch (e) { showToast('Erreur.', 'error'); }
+        }
+
+        const videoUploadZone = document.getElementById('uploadZone');
+        videoUploadZone.addEventListener('dragover', (e) => { e.preventDefault(); videoUploadZone.style.borderColor = 'var(--km-green)'; });
+        videoUploadZone.addEventListener('dragleave', () => { videoUploadZone.style.borderColor = 'var(--border)'; });
+        videoUploadZone.addEventListener('drop', (e) => {
+            e.preventDefault(); videoUploadZone.style.borderColor = 'var(--border)';
+            const file = e.dataTransfer.files[0];
+            if (file) handleVideoImage(file);
+        });
+
+        // ============================================================
+        //  GALERIE
+        // ============================================================
+        function loadGallery() {
+            try {
+                return JSON.parse(localStorage.getItem(GALLERY_STORAGE_KEY) || '[]');
+            } catch (e) { return []; }
+        }
+        function saveGallery(g) {
+            try { localStorage.setItem(GALLERY_STORAGE_KEY, JSON.stringify(g.slice(0, MAX_GALLERY_ITEMS))); }
+            catch (e) { console.warn('Sauvegarde galerie impossible', e); }
+        }
+        function addVideoToGallery(entry) {
+            const g = loadGallery();
+            entry.id = Date.now() + '-' + Math.random().toString(36).slice(2, 8);
+            g.unshift(entry);
+            saveGallery(g);
+            renderGallery();
+        }
+        function deleteFromGallery(id) {
+            const g = loadGallery().filter(v => v.id !== id);
+            saveGallery(g);
+            renderGallery();
+            showToast('🗑️ Vidéo retirée.', 'success');
+        }
+        function clearGallery() {
+            if (!confirm('Vider toute la galerie ?')) return;
+            saveGallery([]);
+            renderGallery();
+            showToast('🗑️ Galerie vidée.', 'success');
+        }
+        function renderGallery() {
+            const card = document.getElementById('galleryCard');
+            const grid = document.getElementById('galleryGrid');
+            const count = document.getElementById('galleryCount');
+            const g = loadGallery();
+            if (g.length === 0) {
+                card.style.display = 'none';
+                return;
+            }
+            card.style.display = 'block';
+            count.textContent = g.length;
+            grid.innerHTML = g.map(v => `
+                <div class="gallery-item">
+                    <video src="${v.url}" preload="metadata" muted playsinline onclick="this.paused?this.play():this.pause()"></video>
+                    <div class="gallery-meta">
+                        <span class="title" title="${escapeHtml(v.prompt || 'Sans titre')}">${escapeHtml(v.prompt || 'Sans titre')}</span>
+                        <span class="date">${new Date(v.ts).toLocaleString()}</span>
+                    </div>
+                    <div class="gallery-item-actions">
+                        <a href="${v.url}" download target="_blank">⬇️</a>
+                        <button onclick="reuseFromGallery('${v.id}')" title="Réutiliser le prompt">♻️</button>
+                        <button onclick="deleteFromGallery('${v.id}')" title="Supprimer">🗑️</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+        function reuseFromGallery(id) {
+            const g = loadGallery();
+            const v = g.find(x => x.id === id);
+            if (!v) return;
+            document.getElementById('videoPrompt').value = v.prompt || '';
+            if (v.style) document.getElementById('videoStyle').value = v.style;
+            if (v.env) document.getElementById('videoEnv').value = v.env;
+            if (v.motion) document.getElementById('videoMotion').value = v.motion;
+            updatePromptPreview();
+            showToast('♻️ Prompt rechargé.', 'success');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // ============================================================
+        //  RETRY 503/429/5xx
+        // ============================================================
+        async function createVideoTaskWithRetry(body, label = 'Vidéo') {
+            let lastError = null;
+            const resultEl = document.getElementById('videoResult');
+            for (let attempt = 0; attempt <= MAX_CREATE_RETRIES; attempt++) {
+                try {
+                    const res = await fetchWithTimeout(`${BASE_URL}/videos`, {
+                        method: 'POST', headers: apiHeaders(), body: JSON.stringify(body)
+                    }, API_TIMEOUT_MS);
+                    if (res.ok) return res;
+                    if (!RETRYABLE_STATUSES.includes(res.status)) return res;
+                    const errData = await res.json().catch(() => ({}));
+                    const msg = errData.error?.message || `HTTP ${res.status}`;
+                    lastError = new Error(`${res.status} — ${msg}`);
+                    showToast(`⏳ Erreur ${res.status}. Tentative ${attempt + 1}/${MAX_CREATE_RETRIES}…`, 'error');
+                } catch (e) {
+                    lastError = e;
+                    showToast(`⏳ Erreur réseau. Tentative ${attempt + 1}/${MAX_CREATE_RETRIES}…`, 'error');
+                }
+                if (attempt < MAX_CREATE_RETRIES) {
+                    const delay = Math.min(BACKOFF_BASE_MS * Math.pow(2, attempt), BACKOFF_MAX_MS);
+                    const sec = Math.round(delay / 1000);
+                    if (resultEl) {
+                        resultEl.innerHTML = `
+                            <div class="progress-text" style="color:var(--warning);">⏳ Service saturé — tentative ${attempt + 1}/${MAX_CREATE_RETRIES} dans ${sec}s…</div>
+                            <div class="progress-bar"><div class="fill" style="width:${((attempt + 1) / MAX_CREATE_RETRIES * 100).toFixed(1)}%"></div></div>
+                        `;
+                    }
+                    for (let s = sec; s > 0; s--) {
+                        if (resultEl) {
+                            const text = resultEl.querySelector('.progress-text');
+                            if (text) text.textContent = `⏳ Service saturé — tentative ${attempt + 1}/${MAX_CREATE_RETRIES} dans ${s}s…`;
+                        }
+                        await sleep(1000);
+                    }
+                }
+            }
+            throw lastError || new Error('Service saturé.');
+        }
+
+        // ============================================================
+        //  VIDÉO — Génération
+        // ============================================================
+        async function generateVideoFromImage() {
+            if (!videoImageDataUri) { showToast('Téléchargez d\'abord une image.', 'error'); return; }
+            const prompt = document.getElementById('videoPrompt').value.trim();
+            const duration = parseInt(document.getElementById('videoDuration').value, 10) || 10;
+            const fps = parseInt(document.getElementById('videoFps').value, 10) || DEFAULT_FPS;
+            const style = document.getElementById('videoStyle').value;
+            const env = document.getElementById('videoEnv').value;
+            const motion = document.getElementById('videoMotion').value;
+            const negative = document.getElementById('videoNeg').value.trim();
+
+            if (!getApiKey()) { showToast('Clé API requise.', 'error'); return; }
+
+            const numFrames = toValidNumFrames(duration, fps);
+
+            let fullPrompt = prompt || 'Animate this image with natural motion';
+            if (style) fullPrompt += `, visual style: ${style}`;
+            if (env) fullPrompt += `, environment: ${env}`;
+            if (motion) fullPrompt += `, camera movement: ${motion}`;
+            fullPrompt = buildComoresContext(false, true) + '\n\n---\n\n' + fullPrompt;
+
+            let imageData = videoImageDataUri;
+            if (!imageData.startsWith('data:')) imageData = 'data:image/jpeg;base64,' + imageData;
+
+            const btn = document.getElementById('genVideoBtn');
+            btn.disabled = true; btn.textContent = '⏳ Création...';
+            const resultEl = document.getElementById('videoResult');
+            resultEl.innerHTML = '<div class="placeholder">Création de la tâche vidéo...</div>';
+
+            try {
+                const body = { model: VIDEO_MODEL, prompt: fullPrompt, num_frames: numFrames, frame_rate: fps };
+                if (imageData) body.image = imageData;
+                if (negative) body.negative_prompt = negative;
+
+                const createRes = await createVideoTaskWithRetry(body, 'Image→Vidéo');
+                if (!createRes.ok) {
+                    const rawText = await createRes.text();
+                    let errData = {};
+                    try { errData = JSON.parse(rawText); } catch (e) { errData = { raw: rawText }; }
+                    console.error(`❌ ${createRes.status} :`, errData);
+                    const detail = errData.error?.message || errData.message || errData.raw || `HTTP ${createRes.status}`;
+                    if (createRes.status === 403) throw new Error(`403 — Accès refusé.\nDétail : ${detail}`);
+                    if (createRes.status === 400) throw new Error(`400 — Paramètres invalides.\nDétail : ${detail}`);
+                    if (createRes.status === 402) throw new Error(`402 — Quota épuisé.`);
+                    throw new Error(`Erreur ${createRes.status} — ${detail}`);
+                }
+                const createData = await createRes.json();
+                const videoId = createData.video_id || createData.id || createData.task_id;
+                if (!videoId) throw new Error('Aucun identifiant de tâche.');
+
+                const videoUrl = await pollVideo(videoId, VIDEO_MODEL, 'videoResult');
+
+                // ✅ Ajout à la galerie
+                if (videoUrl) {
+                    addVideoToGallery({
+                        url: videoUrl,
+                        prompt: prompt || 'Animate this image with natural motion',
+                        style, env, motion,
+                        duration, fps, numFrames,
+                        ts: Date.now()
+                    });
+                }
+            } catch (err) {
+                console.error('Erreur génération vidéo :', err);
+                resultEl.innerHTML = `
+                    <div class="placeholder" style="color:var(--danger);white-space:pre-wrap;text-align:left;padding:1.25rem;">❌ ${escapeHtml(err.message)}</div>
+                    <div class="result-actions" style="margin-top:1rem;">
+                        <button class="retry-btn" onclick="generateVideoFromImage()">🔄 Réessayer maintenant</button>
+                    </div>
+                `;
+                showToast(err.message.split('\n')[0], 'error');
+            } finally {
+                btn.disabled = false; btn.textContent = '🎬 Générer la vidéo';
+            }
+        }
+
+        // ============================================================
+        //  POLLING VIDÉO
+        // ============================================================
+        async function pollVideo(videoId, model, containerId) {
+            const container = document.getElementById(containerId);
+            let remaining = Math.floor(FIRST_POLL_DELAY_MS / 1000);
+            while (remaining > 0) {
+                container.innerHTML = `
+                    <div class="progress-text">⏳ Attente initiale — ${remaining}s…</div>
+                    <div class="progress-bar"><div class="fill" style="width:${((Math.floor(FIRST_POLL_DELAY_MS/1000) - remaining) / Math.floor(FIRST_POLL_DELAY_MS/1000) * 30).toFixed(1)}%"></div></div>
+                `;
+                await sleep(1000);
+                remaining--;
+            }
+            for (let attempt = 0; attempt < MAX_POLL_ATTEMPTS; attempt++) {
+                if (attempt > 0) {
+                    let r = Math.floor(POLL_INTERVAL_MS / 1000);
+                    while (r > 0) {
+                        container.innerHTML = `
+                            <div class="progress-text">⏳ Vérification ${attempt + 1}/${MAX_POLL_ATTEMPTS} dans ${r}s…</div>
+                            <div class="progress-bar"><div class="fill" style="width:${(30 + (attempt / MAX_POLL_ATTEMPTS) * 70).toFixed(1)}%"></div></div>
+                        `;
+                        await sleep(1000);
+                        r--;
+                    }
+                }
+                const url = `${RAW_URL}/agnesapi?video_id=${encodeURIComponent(videoId)}&model_name=${encodeURIComponent(model)}`;
+                try {
+                    const res = await fetchWithTimeout(url, { headers: apiHeaders() }, 30000);
+                    const d = await res.json();
+                    const status = d.status || d.state || 'unknown';
+                    const progress = d.progress || 0;
+                    console.log(`Poll #${attempt + 1} — statut="${status}", progress=${progress}%`);
+                    if (status === 'completed' || status === 'succeeded' || status === 'success') {
+                        const videoUrl = d.metadata?.url || d.url || d.output?.url;
+                        if (videoUrl) {
+                            container.innerHTML = `
+                                <video controls src="${videoUrl}" style="width:100%;border-radius:12px;"></video>
+                                <div class="result-actions"><a href="${videoUrl}" download target="_blank">⬇️ Télécharger la vidéo</a></div>
+                            `;
+                            showToast('✅ Vidéo générée !', 'success');
+                            return videoUrl;
+                        } else {
+                            container.innerHTML = '<div class="placeholder" style="color:var(--warning);">URL introuvable.</div>';
+                            return null;
+                        }
+                    }
+                    if (status === 'failed' || status === 'error') {
+                        container.innerHTML = `<div class="placeholder" style="color:var(--danger);">❌ Échec : ${d.error || 'Erreur inconnue'}</div>`;
+                        showToast('La génération a échoué.', 'error');
+                        return null;
+                    }
+                    container.innerHTML = `
+                        <div class="progress-text">⏳ Statut : ${status} (${progress}%)</div>
+                        <div class="progress-bar"><div class="fill" style="width:${Math.min(progress, 100)}%"></div></div>
+                    `;
+                } catch (err) { console.error('Poll error:', err); }
+            }
+            throw new Error('Délai maximal dépassé.');
+        }
+
+        // ============================================================
         //  UTILITAIRES
         // ============================================================
         function escapeHtml(str) {
             if (!str) return '';
-            return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-        }
-        function escapeBacktick(str) {
-            return str.replace(/\\/g, '\\\\').replace(/`/g, '\\`').replace(/\$/g, '\\$');
+            return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
         }
         function copyToClipboard(text) {
-            navigator.clipboard.writeText(text).then(() => showToast('📋 Copié !', 'success')).catch(() => showToast('Impossible de copier.', 'error'));
+            navigator.clipboard.writeText(text).then(() => showToast('📋 Copié !', 'success')).catch(() => showToast('Impossible.', 'error'));
         }
         let toastTimeout = null;
         function showToast(message, type = '') {
@@ -872,13 +1510,36 @@
         //  INIT
         // ============================================================
         (function init() {
+            // Clé API
             const savedKey = localStorage.getItem('agnes_api_key');
             if (savedKey) {
                 apiKeyInput.value = savedKey;
                 currentApiKey = savedKey;
                 statusDot.classList.add('connected');
             }
-            console.log('🧠 Ankili IA — Interface prête (texte + image)');
+
+            // Chat
+            loadConversation();
+            renderConversation();
+
+            // Textarea auto-resize + Entrée
+            const ta = document.getElementById('textPrompt');
+            ta.addEventListener('input', () => autoResizeTextarea(ta));
+            ta.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); generateText(); }
+            });
+
+            // Préférences + préréglages + galerie
+            loadPrefs();
+            attachPrefsListeners();
+            renderPresets();
+            renderGallery();
+
+            console.log('🧠 Ankili IA — Prêt');
+            console.log('✅ Fix chat : rôles "error" filtrés avant envoi à l\'API');
+            console.log('✅ Galerie : conservation des', MAX_GALLERY_ITEMS, 'dernières vidéos');
+            console.log('✅ Préréglages :', VIDEO_PRESETS.length, 'disponibles');
+            console.log('✅ Préférences sauvegardées automatiquement');
         })();
     </script>
 </body>
